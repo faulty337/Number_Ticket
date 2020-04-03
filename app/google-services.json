@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "115598430158",
+    "firebase_url": "https://number-ticket-fbb86.firebaseio.com",
+    "project_id": "number-ticket-fbb86",
+    "storage_bucket": "number-ticket-fbb86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115598430158:android:e5a15a757cb61b9878659f",
+        "android_client_info": {
+          "package_name": "com.example.number_ticket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115598430158-j15ia8vmjvrgv2qeum4eh4usva7rn3de.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPYCWH-Gd6FWS3TkuHJdhSplD4_OURq-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115598430158-j15ia8vmjvrgv2qeum4eh4usva7rn3de.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
