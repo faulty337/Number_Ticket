@@ -27,6 +27,8 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.bt_login).setOnClickListener(onClickListener);
         mAuth = FirebaseAuth.getInstance();
         findViewById(R.id.bt_goto_sign_up).setOnClickListener(onClickListener);
+        findViewById(R.id.bt_goto_passwordreset).setOnClickListener(onClickListener);
+
 
     }
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -37,7 +39,11 @@ public class LoginActivity extends AppCompatActivity {
                     login();
                     break;
                 case R.id.bt_goto_sign_up:
-                    gotosignup();
+                    myStartActivity(SignUpActivity.class);
+                    break;
+                case R.id.bt_goto_passwordreset:
+                    myStartActivity(PasswordResetActivity.class);
+                    break;
             }
         }
     };
@@ -48,6 +54,14 @@ public class LoginActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
     }
 
     private void login(){
@@ -63,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 openToast("로그인에 성공하였습니다.");
+                                myStartActivity(SelectUserActivity.class);
                             } else {
                                 if (task.getException() != null)
                                     // If sign in fails, display a message to the user.
@@ -76,8 +91,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-    private void gotosignup(){
-        Intent intent = new Intent(this, SignUpActivity.class);
+    private void myStartActivity(Class ac){
+        Intent intent = new Intent(this, ac);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
     private void openToast(String text){

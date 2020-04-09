@@ -81,7 +81,6 @@ public class SignUpActivity extends AppCompatActivity {
                                         openToast(task.getException().toString() + "\n" + "로그인에 실패했습니다.");
                                     //updateUI(null); //실패했을때
                                 }
-
                                 // ...
                             }
                         });
