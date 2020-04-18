@@ -6,33 +6,193 @@
     android:layout_height="match_parent"
     tools:context=".ShopList">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="매장 목록"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        tools:ignore="MissingConstraints">
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="제공자 정보 목록"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/bt_shopadd"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="+ 신규 매장 추가"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        <Button
+            android:id="@+id/bt_shopadd"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="+ 신규 매장 추가"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_shopadd" />
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="130dp"
+            android:layout_weight="0"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_weight="0"
+                android:paddingLeft="20dp"
+                android:paddingTop="15dp"
+                android:text="ⓐ 김밥천국 00점"
+                android:textColor="#000000"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:layout_weight="0"
+                android:orientation="horizontal">
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:layout_weight="0"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:text="분식"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:layout_weight="0"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="20dp"
+                android:text="064-000-0000"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:background="@drawable/leftborder"
+                />
+            </LinearLayout>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:layout_weight="0"
+                android:paddingTop="7dp"
+                android:paddingLeft="20dp"
+                android:text="제주도 제주시 ---------"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="130dp"
+            android:layout_weight="0"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_weight="0"
+                android:paddingLeft="20dp"
+                android:paddingTop="15dp"
+                android:text="ⓐ 김밥천국 00점"
+                android:textColor="#000000"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:layout_weight="0"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="75dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="0"
+                    android:paddingLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:text="분식"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="0"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:text="064-000-0000"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:background="@drawable/leftborder"
+                    />
+            </LinearLayout>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:layout_weight="0"
+                android:paddingTop="7dp"
+                android:paddingLeft="20dp"
+                android:text="제주도 제주시 ---------"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="130dp"
+            android:layout_weight="0"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_weight="0"
+                android:paddingLeft="20dp"
+                android:paddingTop="15dp"
+                android:text="ⓐ 김밥천국 00점"
+                android:textColor="#000000"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:layout_weight="0"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="75dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="0"
+                    android:paddingLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:text="분식"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="0"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingLeft="20dp"
+                    android:text="064-000-0000"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:background="@drawable/leftborder"
+                    />
+            </LinearLayout>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:layout_weight="0"
+                android:paddingTop="7dp"
+                android:paddingLeft="20dp"
+                android:text="제주도 제주시 ---------"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
