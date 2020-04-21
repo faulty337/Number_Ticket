@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class ShopList extends AppCompatActivity {
+public class SearchShopList extends AppCompatActivity {
 
     ArrayList<SampleData> movieDataList;
 
