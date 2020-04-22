@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class ShopList extends AppCompatActivity {
 
-    ArrayList<SampleData> movieDataList;
+    ArrayList<ShopData> movieDataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +22,15 @@ public class ShopList extends AppCompatActivity {
         this.InitializeMovieData();
 
         ListView listView = (ListView)findViewById(R.id.pv_info_listcontent);
-        final MyAdapter myAdapter = new MyAdapter(this,movieDataList);
+        final SearchAdapter searchAdapter = new SearchAdapter(this,movieDataList);
 
-        listView.setAdapter(myAdapter);
+        listView.setAdapter(searchAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id){
                 Toast.makeText(getApplicationContext(),
-                        myAdapter.getItem(position).getSName(),
+                        searchAdapter.getItem(position).getName(),
                         Toast.LENGTH_LONG).show();
             }
         });
@@ -38,10 +38,10 @@ public class ShopList extends AppCompatActivity {
 
     public void InitializeMovieData()
     {
-        movieDataList = new ArrayList<SampleData>();
+        movieDataList = new ArrayList<ShopData>();
 
-        movieDataList.add(new SampleData("김밥천국 00점", "064-000-0000", "분식", "제주도 00시 ---"));
-        movieDataList.add(new SampleData("김밥천국 00점", "064-000-0000", "분식", "제주도 00시 ---"));
-        movieDataList.add(new SampleData("김밥천국 00점", "064-000-0000", "분식", "제주도 00시 ---"));
+        movieDataList.add(new ShopData("김밥천국 00점", "064-000-0000", "분식", "제주도 00시 ---"));
+        movieDataList.add(new ShopData("김밥천국 00점", "064-000-0000", "분식", "제주도 00시 ---"));
+        movieDataList.add(new ShopData("김밥천국 00점", "064-000-0000", "분식", "제주도 00시 ---"));
     }
 }

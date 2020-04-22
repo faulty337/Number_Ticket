@@ -7,7 +7,6 @@
     tools:context=".ShopList">
 
     <LinearLayout
-        android:id="@+id/pv_info_list"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -51,7 +50,7 @@
             />
 
         <ListView
-            android:id="@+id/listView"
+            android:id="@+id/shop_search_listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="#999999"

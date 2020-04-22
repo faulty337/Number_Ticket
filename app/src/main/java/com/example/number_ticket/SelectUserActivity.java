@@ -34,6 +34,8 @@ public class SelectUserActivity extends AppCompatActivity {
             }
         }
         findViewById(R.id.bt_logout).setOnClickListener(onClickListener);
+        findViewById(R.id.bt_manager).setOnClickListener(onClickListener);
+        findViewById(R.id.bt_guest).setOnClickListener(onClickListener);
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -42,12 +44,18 @@ public class SelectUserActivity extends AppCompatActivity {
             switch (v.getId()){
                 case R.id.bt_logout:
                     FirebaseAuth.getInstance().signOut();
-                    Intent intent = new Intent(SelectUserActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    myStartActivity(LoginActivity.class);
                     break;
                 case R.id.bt_guest:
+                    break;
+                case R.id.bt_manager:
+                    myStartActivity(SearchShopList.class);
+                    break;
             }
         }
     };
-
+    private void myStartActivity(Class ac){
+        Intent intent = new Intent(this, ac);
+        startActivity(intent);
+    }
 }

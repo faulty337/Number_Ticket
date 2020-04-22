@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/listcontent"
+        android:layout_width="fill_parent"
+        android:layout_height="130dp"
+        android:layout_weight="0"
+        android:orientation="vertical"
+        android:background="@drawable/downborder"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/shop_name"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_weight="0"
+            android:paddingLeft="20dp"
+            android:paddingTop="15dp"
+            android:text="ⓐ 김밥천국 00점"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:id="@+id/listcontent2"
+            android:layout_width="fill_parent"
+            android:layout_height="35dp"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/shop_type"
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:layout_weight="0"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:text="분식"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/shop_tel_number"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:layout_weight="0"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="20dp"
+                android:text="064-000-0000"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:background="@drawable/leftborder" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/shop_addr"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:layout_weight="0"
+            android:paddingTop="7dp"
+            android:paddingLeft="20dp"
+            android:text="제주도 제주시 ---------"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -9,13 +9,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends BaseAdapter {
+public class SearchAdapter extends BaseAdapter {
 
     Context mContext = null;
     LayoutInflater mLayoutInflater = null;
-    ArrayList<SampleData> sample;
+    ArrayList<ShopData> sample;
 
-    public MyAdapter(Context context, ArrayList<SampleData> data) {
+    public SearchAdapter(Context context, ArrayList<ShopData> data) {
         mContext = context;
         sample = data;
         mLayoutInflater = LayoutInflater.from(mContext);
@@ -32,7 +32,7 @@ public class MyAdapter extends BaseAdapter {
     }
 
     @Override
-    public SampleData getItem(int position) {
+    public ShopData getItem(int position) {
         return sample.get(position);
     }
 
@@ -45,10 +45,10 @@ public class MyAdapter extends BaseAdapter {
         TextView TelNumber = (TextView)view.findViewById(R.id.pv_info_stelnumber);
         TextView Saddr = (TextView)view.findViewById(R.id.pv_info_saddr);
 
-        SName.setText(sample.get(position).getSName());
-        SGroup.setText(sample.get(position).getSGroup());
-        TelNumber.setText(sample.get(position).getTelNumber());
-        Saddr.setText(sample.get(position).getSaddr());
+        SName.setText(sample.get(position).getName());
+        SGroup.setText(sample.get(position).getType());
+        TelNumber.setText(sample.get(position).getTel_number());
+        Saddr.setText(sample.get(position).getAddress());
 
         return view;
     }
