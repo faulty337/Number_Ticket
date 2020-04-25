@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,9 +37,11 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         findViewById(R.id.bt_login).setOnClickListener(onClickListener);
-        findViewById(R.id.bt_goto_login).setOnClickListener(onClickListener);
         mAuth = FirebaseAuth.getInstance();
         email = new String();
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sign_up);
 
 
     }
@@ -49,9 +52,6 @@ public class SignUpActivity extends AppCompatActivity {
             switch (v.getId()){
                 case R.id.bt_login:
                     signup();
-                    break;
-                case R.id.bt_goto_login:
-                    gotoLogin();
                     break;
             }
         }
