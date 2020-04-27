@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#ffffff">
         <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/ScrollView1"
+            android:id="@+id/ScrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
@@ -16,18 +15,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:gravity="center"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
-                android:text="회원가입"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/bt_back"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:adjustViewBounds="true"
+                    android:background="#00FFFFFF"
+                    android:layout_marginTop="15dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/backbt" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="30dp"
+                    android:paddingRight="54dp"
+                    android:text="회원가입"
+                    android:textColor="#000000"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -190,7 +206,7 @@
         </LinearLayout>
     </ScrollView>
     <Button
-        android:id="@+id/bt_login"
+        android:id="@+id/bt_goto_sign_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="회원 가입"

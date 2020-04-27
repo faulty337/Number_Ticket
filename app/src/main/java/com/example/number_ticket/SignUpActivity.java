@@ -53,6 +53,9 @@ public class SignUpActivity extends AppCompatActivity {
                 case R.id.bt_login:
                     signup();
                     break;
+                case R.id.bt_back:
+                    onBackPressed();
+                    break;
             }
         }
     };
