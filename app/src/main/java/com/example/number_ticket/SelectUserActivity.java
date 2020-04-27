@@ -47,9 +47,10 @@ public class SelectUserActivity extends AppCompatActivity {
                     myStartActivity(LoginActivity.class);
                     break;
                 case R.id.bt_guest:
+                    myStartActivity(SearchShopList.class);
                     break;
                 case R.id.bt_manager:
-                    myStartActivity(SearchShopList.class);
+
                     break;
             }
         }

@@ -40,10 +40,6 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         email = new String();
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
-
-
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
