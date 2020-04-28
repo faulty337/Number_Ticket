@@ -15,6 +15,7 @@
         <activity android:name=".SearchShopList"/>
         <activity android:name=".PasswordResetActivity"/>
         <activity android:name=".SelectUserActivity" />
+        <activity android:name=".CsRsvActivity"/>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
