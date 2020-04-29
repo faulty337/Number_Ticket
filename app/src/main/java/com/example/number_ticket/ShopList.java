@@ -2,6 +2,7 @@ package com.example.number_ticket;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,29 +20,45 @@ public class ShopList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_list);
 
-        this.InitializeMovieData();
+//        this.InitializeMovieData();
 
-        ListView listView = (ListView)findViewById(R.id.pv_info_listcontent);
-        final SearchAdapter searchAdapter = new SearchAdapter(this,movieDataList);
+//        ListView listView = (ListView)findViewById(R.id.pv_info_listcontent);
+//        final SearchAdapter searchAdapter = new SearchAdapter(this,movieDataList);
+//
+//        listView.setAdapter(searchAdapter);
+//
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+//            @Override
+//            public void onItemClick(AdapterView parent, View v, int position, long id){
+//                Toast.makeText(getApplicationContext(),
+//                        searchAdapter.getItem(position).getName(),
+//                        Toast.LENGTH_LONG).show();
+//            }
+//        });
 
-        listView.setAdapter(searchAdapter);
+        Intent intent = getIntent();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        findViewById(R.id.bt_shopadd).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView parent, View v, int position, long id){
-                Toast.makeText(getApplicationContext(),
-                        searchAdapter.getItem(position).getName(),
-                        Toast.LENGTH_LONG).show();
+            public void onClick(View v) {
+                MyStartActivity(AddShop.class);
             }
-        });
+        });//AddShop 이동
+
+
     }
 
-    public void InitializeMovieData()
-    {
-        movieDataList = new ArrayList<ShopData>();
+//    public void InitializeMovieData()
+//    {
+//        movieDataList = new ArrayList<ShopData>();
+//
+//        movieDataList.add(new ShopData("cu제주대점", "064-123-4567", "편의", "대충제주대"));
+//        movieDataList.add(new ShopData("김밥천국", "064-987-6543", "식당", "발할라"));
+//    }
 
-        movieDataList.add(new ShopData("김밥천국 00점", "064-000-0000", "분식", "제주도 00시 ---"));
-        movieDataList.add(new ShopData("김밥천국 00점", "064-000-0000", "분식", "제주도 00시 ---"));
-        movieDataList.add(new ShopData("김밥천국 00점", "064-000-0000", "분식", "제주도 00시 ---"));
+    private void MyStartActivity(Class go_to){
+        Intent intent = new Intent(ShopList.this, go_to);
+        startActivity(intent);
     }
+
 }
