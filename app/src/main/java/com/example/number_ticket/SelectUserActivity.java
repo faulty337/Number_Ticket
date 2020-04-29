@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,12 +45,13 @@ public class SelectUserActivity extends AppCompatActivity {
             switch (v.getId()){
                 case R.id.bt_logout:
                     FirebaseAuth.getInstance().signOut();
-                    myStartActivity(LoginActivity.class);
+                    myStartActivity(LoginActivity.class);//로그아웃
                     break;
                 case R.id.bt_guest:
+                    myStartActivity(SearchShopList.class);//손님 -> 매장 검색
                     break;
                 case R.id.bt_manager:
-                    myStartActivity(SearchShopList.class);
+                    myStartActivity(ShopList.class);//관리자 -> 제공자 정보 목록
                     break;
             }
         }

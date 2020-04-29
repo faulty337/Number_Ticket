@@ -11,9 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShopList"/>
-        <activity android:name=".SearchShopList"/>
-        <activity android:name=".PasswordResetActivity"/>
+        <activity android:name=".AddShop"></activity>
+        <activity android:name=".ShopList" />
+        <activity android:name=".SearchShopList" />
+        <activity android:name=".PasswordResetActivity" />
         <activity android:name=".SelectUserActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -22,9 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".SignUpActivity" android:parentActivityName=".LoginActivity"/>
-
+        <activity
+            android:name=".SignUpActivity"
+            android:parentActivityName=".LoginActivity" />
     </application>
 
 </manifest>
