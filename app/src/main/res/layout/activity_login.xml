@@ -43,6 +43,7 @@
                 android:layout_gravity="center"
                 android:ems="10"
                 android:hint="아이디"
+                android:background="@null"
                 android:inputType="textEmailAddress"
                 android:paddingLeft="10dp" />
 
@@ -69,6 +70,7 @@
                 android:layout_gravity="center"
                 android:ems="10"
                 android:hint="비밀번호"
+                android:background="@null"
                 android:inputType="textPassword"
                 android:paddingLeft="10dp" />
         </LinearLayout>
@@ -87,6 +89,7 @@
                 android:layout_gravity="center"
                 style="?android:attr/borderlessButtonStyle"
                 android:text="회원가입"
+                android:background="@null"
                 android:textColor="#AAAAAA"
                 android:textStyle="bold" />
 
@@ -97,6 +100,7 @@
                 android:layout_gravity="center"
                 style="?android:attr/borderlessButtonStyle"
                 android:text="비밀번호 재설정"
+                android:background="@null"
                 android:textColor="#AAAAAA"
                 android:textStyle="bold" />
         </LinearLayout>
