@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#ffffff">
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/ScrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,18 +16,34 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:gravity="center"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
-                android:text="매장 정보 입력"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content">
 
+                <ImageButton
+                    android:id="@+id/bt_back"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:adjustViewBounds="true"
+                    android:background="#00FFFFFF"
+                    android:layout_marginTop="15dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/backbt" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="30dp"
+                    android:paddingRight="54dp"
+                    android:text="매장 정보 입력"
+                    android:textColor="#000000"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -47,6 +62,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:text="가게명"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="10dp" />
@@ -65,7 +81,7 @@
                             android:background="@null"
                             android:padding="7dp"
                             android:ems="10"
-                            android:hint="내용을 입력해주세요."
+                            android:hint="가게명을 입력해주세요."
                             />
 
 
@@ -84,6 +100,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:text="주소(지번)"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="10dp" />
@@ -111,6 +128,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:text="연락처"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="10dp" />
@@ -131,13 +149,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="40dp">
+                    android:layout_marginBottom="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:text="코드사용여부"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="10dp" />
@@ -148,8 +167,17 @@
                         android:layout_height="wrap_content"
                         android:padding="7dp"
                         android:ems="10" />
-
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="340dp"
+                    android:layout_height="159dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="사용자가 직접 가게로 와서 번호표를 받게 하고 싶으시면 코드사용 여부를 체크해주세요. 코드는 제공자가 직접 입력해야 합니다. 코드를 사용하지 않으시려면 체크해제 후 저장을 눌러주세요"
+                    android:textColor="#000000"
+                    android:layout_marginBottom="20dp"
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="330dp"
@@ -163,6 +191,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:text="코드"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="10dp" />

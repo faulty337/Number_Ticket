@@ -63,6 +63,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:text="아이디"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="10dp" />
@@ -108,6 +109,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:text="이름"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="10dp" />
@@ -135,6 +137,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:text="전화번호"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="10dp" />
@@ -162,6 +165,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:text="비밀번호"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="10dp" />
@@ -188,6 +192,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:text="비밀번호확인"
+                        android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="10dp" />

@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShopList"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#ffffff">
 
     <LinearLayout
-        android:id="@+id/pv_info_list"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:ignore="MissingConstraints">
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@drawable/downborder"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            tools:ignore="MissingConstraints">
 
             <ImageButton
                 android:id="@+id/bt_back"
@@ -37,7 +35,7 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="제공자 정보 목록"
+                android:text="고객 대기리스트"
                 android:textColor="#000000"
                 android:textSize="32sp"
                 android:textStyle="bold"
@@ -56,22 +54,21 @@
                 android:layout_marginTop="15dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/homebt"/>
-
         </LinearLayout>
 
-        <Button
-            android:id="@+id/bt_shopadd"
+        <TextView
+            android:id="@+id/wait_total_num"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:padding="15dp"
-            android:text="+ 신규 제공자 정보 추가"
-            android:textSize="22sp"
-            android:background="@drawable/downborder"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            android:layout_height="wrap_content"
+            android:padding="7dp"
+            android:text="대기 목록(?)"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:background="@drawable/downborder" />
+
         <ListView
-            android:id="@+id/pv_info_listcontent"
+            android:id="@+id/pv_waitlist"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
