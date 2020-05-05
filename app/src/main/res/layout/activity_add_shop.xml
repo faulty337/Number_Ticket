@@ -81,11 +81,37 @@
                             android:background="@null"
                             android:padding="7dp"
                             android:ems="10"
-                            android:hint="가게명을 입력해주세요."
-                            />
-
-
+                            android:hint="가게명을 입력해주세요." />
                     </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="40dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:text="분류"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="10dp" />
+
+                    <EditText
+                        android:id="@+id/et_sgroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:padding="7dp"
+                        android:ems="10"
+                        android:hint="가게 분류를 입력해주세요 ex)분식, 양식" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -207,6 +233,24 @@
                         android:inputType="textPassword" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="40dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:gravity="center"
+                        android:text="메뉴를 추가합니다. 각 메뉴가 소모될 평균 시간을 입력해주세요. 버튼으로 추가해서 입력해주세요."
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        android:layout_marginBottom="10dp" />
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

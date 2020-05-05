@@ -20,6 +20,11 @@
         <activity android:name=".CsTicketActivity"/>
         <activity android:name=".PvActActivity"/>
         <activity android:name=".PvWaitlistActivity"/>
+        <activity android:name=".SignUpCheck"/>
+        <activity android:name=".AddShopCheck"/>
+        <activity android:name=".DeleteShopCheck"/>
+        <activity android:name=".CantRsv"/>
+        <activity android:name=".CodeCheck"/>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
