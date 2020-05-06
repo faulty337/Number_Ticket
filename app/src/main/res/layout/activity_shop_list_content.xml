@@ -39,11 +39,12 @@
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/pv_info_sgroup"
-                    android:layout_width="75dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_weight="0"
                     android:paddingLeft="20dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
                     android:text="분식"
                     android:textSize="20dp"
                     android:textStyle="bold" />
