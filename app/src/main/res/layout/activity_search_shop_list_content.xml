@@ -25,6 +25,7 @@
             android:textColor="#000000"
             android:textSize="25dp"
             android:textStyle="bold" />
+
         <LinearLayout
             android:id="@+id/listcontent2"
             android:layout_width="fill_parent"

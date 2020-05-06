@@ -1,14 +1,68 @@
 package com.example.number_ticket;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class CsRsvActivity extends Activity
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+public class CsRsvActivity extends AppCompatActivity
 {
+    private static final String TAG = "CsRsvActivity";
+    private String shopname;
+    private FirebaseFirestore db;
+    private DatabaseReference shopinfo;
+    private TextView pv_info_sname;
+    private TextView pv_waitnumber;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cs_rsv);
+        Intent intent = getIntent();
+        shopinfo = FirebaseDatabase.getInstance().getReference();
+        Log.d(TAG, shopinfo.getClass().toString());
+        shopname = intent.getExtras().getString("name");
+        pv_info_sname = findViewById(R.id.pv_info_sname);
+        pv_waitnumber = findViewById(R.id.pv_waitnumber);
+        Log.d(TAG, shopname);
+        db = FirebaseFirestore.getInstance();
+        readshop(shopname);
+    }
+    private void readshop(String shopName){
+        db.collection("shop")
+                .whereEqualTo("name", shopName)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                ShopData shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString());
+                                dataset(shopData);
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+    private void dataset(ShopData shopData){
+        pv_info_sname.setText(shopData.getName());
+        pv_waitnumber.setText(shopData.getWaitnumber() + " 명");
     }
 }

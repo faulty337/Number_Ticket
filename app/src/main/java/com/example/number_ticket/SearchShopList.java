@@ -141,6 +141,7 @@ public class SearchShopList extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "아 쉬바좀");
                 Toast.makeText(getApplicationContext(),
                         searchAdapter.getItem(position).getName(),
                         Toast.LENGTH_LONG).show();
