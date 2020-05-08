@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/bt_back"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginLeft="10dp"
+                android:adjustViewBounds="true"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:src="@drawable/backbt" />
+
+            <TextView
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="유저 리스트"
+                android:textColor="#000000"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:layout_width="54dp"
+                android:layout_height="wrap_content"
+                android:text="전환"
+                android:textSize="20sp"
+                android:textColor="#0000FF"
+                android:textStyle="bold"
+                android:background="@null"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:text="이름" />
+
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/downborder">
+
+            <Button
+                android:id="@+id/bt_user_id"
+                android:layout_width="0dp"
+                android:layout_weight="1.2"
+                android:layout_height="40dp"
+                android:text="아이디"
+                android:textSize="13sp"/>
+
+            <Button
+                android:id="@+id/bt_user_name"
+                android:layout_width="0dp"
+                android:layout_weight="0.8"
+                android:layout_height="40dp"
+                android:text="이름"
+                android:textSize="13sp"/>
+
+            <Button
+                android:id="@+id/bt_signup_date"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:text="가입일"
+                android:textSize="13sp"/>
+
+            <Button
+                android:id="@+id/bt_signin_date"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:text="마지막접속일"
+                android:textSize="13sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

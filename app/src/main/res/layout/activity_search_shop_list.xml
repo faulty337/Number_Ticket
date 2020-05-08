@@ -25,6 +25,7 @@
                 android:layout_height="35dp"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:background="@drawable/border"
                 android:text="가게명(업종명)" />
 
             <SearchView

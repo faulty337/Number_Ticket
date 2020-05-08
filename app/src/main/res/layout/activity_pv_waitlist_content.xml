@@ -18,16 +18,18 @@
             android:id="@+id/cs_number"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
             android:gravity="center"
             android:text="1"
             android:textColor="#000000"
-            android:textSize="50sp"
+            android:textSize="45sp"
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="5dp">
 
             <TextView
                 android:id="@+id/cs_name"
@@ -36,7 +38,7 @@
                 android:gravity="center"
                 android:text="이름"
                 android:textColor="#000000"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -46,8 +48,18 @@
                 android:gravity="center"
                 android:text="예상 대기시간: 00~00분"
                 android:textColor="#000000"
-                android:textSize="17sp" />
+                android:textSize="14sp" />
         </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/bt_on"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/checkbt"
+            android:adjustViewBounds="true"
+            android:background="#00FFFFFF"
+            android:scaleType="fitCenter"/>
 
         <ImageButton
             android:id="@+id/bt_alarm"

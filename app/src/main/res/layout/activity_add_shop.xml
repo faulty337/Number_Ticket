@@ -44,6 +44,7 @@
                     android:textStyle="bold" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -53,35 +54,36 @@
                 <LinearLayout
                     android:layout_width="330dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="40dp">
+                    android:layout_marginBottom="40dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:paddingLeft="10dp"
                         android:text="가게명"
                         android:textColor="#000000"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="10dp" />
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="330dp"
                         android:layout_height="40dp"
-                        android:orientation="horizontal"
+                        android:layout_weight="0"
                         android:background="@drawable/border"
-                        android:layout_weight="0">
+                        android:orientation="horizontal">
+
                         <EditText
                             android:id="@+id/et_sname"
                             android:layout_width="0dp"
-                            android:layout_weight="3"
                             android:layout_height="wrap_content"
+                            android:layout_weight="3"
                             android:background="@null"
-                            android:padding="7dp"
                             android:ems="10"
-                            android:hint="가게명을 입력해주세요." />
+                            android:hint="가게명을 입력해주세요."
+                            android:padding="7dp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -89,167 +91,238 @@
                 <LinearLayout
                     android:layout_width="330dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="40dp">
+                    android:layout_marginBottom="40dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:paddingLeft="10dp"
                         android:text="분류"
                         android:textColor="#000000"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="10dp" />
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/et_sgroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/border"
-                        android:padding="7dp"
                         android:ems="10"
-                        android:hint="가게 분류를 입력해주세요 ex)분식, 양식" />
+                        android:hint="가게 분류를 입력해주세요 ex)분식, 양식"
+                        android:padding="7dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="330dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="40dp">
+                    android:layout_marginBottom="40dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:paddingLeft="10dp"
                         android:text="주소(지번)"
                         android:textColor="#000000"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="10dp" />
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/et_addr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/border"
-                        android:padding="7dp"
                         android:ems="10"
-                        android:hint="도로명 주소(지번주소)를 입력해주세요." />
+                        android:hint="도로명 주소(지번주소)를 입력해주세요."
+                        android:padding="7dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="330dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="40dp">
+                    android:layout_marginBottom="40dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:paddingLeft="10dp"
                         android:text="연락처"
                         android:textColor="#000000"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="10dp" />
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/et_spNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/border"
-                        android:padding="7dp"
                         android:ems="10"
-                        android:hint="번호를 입력해주세요 ex)010-1111-2222" />
+                        android:hint="번호를 입력해주세요 ex)010-1111-2222"
+                        android:padding="7dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="330dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:paddingLeft="10dp"
                         android:text="코드사용여부"
                         android:textColor="#000000"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="10dp" />
+                        android:textStyle="bold" />
 
                     <Switch
                         android:id="@+id/code_use"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="7dp"
-                        android:ems="10" />
+                        android:ems="10"
+                        android:padding="7dp" />
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="340dp"
                     android:layout_height="159dp"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center"
                     android:text="사용자가 직접 가게로 와서 번호표를 받게 하고 싶으시면 코드사용 여부를 체크해주세요. 코드는 제공자가 직접 입력해야 합니다. 코드를 사용하지 않으시려면 체크해제 후 저장을 눌러주세요"
                     android:textColor="#000000"
-                    android:layout_marginBottom="20dp"
                     android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="330dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="40dp">
+                    android:layout_marginBottom="40dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:paddingLeft="10dp"
                         android:text="코드"
                         android:textColor="#000000"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="10dp" />
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/et_code"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/border"
-                        android:padding="7dp"
                         android:ems="10"
                         android:hint="영문 또는 숫자 조합, 4~12자 이내"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:padding="7dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="330dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="40dp">
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:text="고급대기시간설정여부"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <Switch
+                        android:id="@+id/expand_set_waittime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:padding="7dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="340dp"
+                    android:layout_height="190dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:text="고급대기시간설정여부는 식당과 같은 업종처럼 각 서비스의 대기시간 차이가 반드시 발생할때 설정 하실 수 있습니다. 각 서비스마다 대기시간을 설정하고 대기시간을 계산해 고객에게 보여줄 수 있습니다. 설정하지 않으시면 아래에 하나의 대기시간만 기입하시면 됩니다."
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:id="@+id/addservice"
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="40dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:paddingLeft="10dp"
-                        android:gravity="center"
-                        android:text="메뉴를 추가합니다. 각 메뉴가 소모될 평균 시간을 입력해주세요. 버튼으로 추가해서 입력해주세요."
+                        android:text="서비스 대기시간 설정"
                         android:textColor="#000000"
                         android:textSize="20sp"
-                        android:layout_marginBottom="10dp" />
+                        android:textStyle="bold" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="7dp">
+
+                        <EditText
+                            android:id="@+id/et_service_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/border"
+                            android:ems="10"
+                            android:hint="서비스이름"
+                            android:padding="7dp" />
+
+                        <EditText
+                            android:id="@+id/et_service_time"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/border"
+                            android:ems="10"
+                            android:hint="대기시간(단위:분)"
+                            android:padding="7dp" />
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:text="+서비스 및 대기시간 추가"
+                        android:textSize="20sp"
+                        android:textColor="#000000"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
