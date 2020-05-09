@@ -13,28 +13,28 @@ import java.util.ArrayList;
 
 public class ShopList extends AppCompatActivity {
 
-    ArrayList<ShopData> movieDataList;
+    ArrayList<ShopData> shopDataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_list);
 
-//        this.InitializeMovieData();
+        this.InitializeShopData();
 
-//        ListView listView = (ListView)findViewById(R.id.pv_info_listcontent);
-//        final SearchAdapter searchAdapter = new SearchAdapter(this,movieDataList);
-//
-//        listView.setAdapter(searchAdapter);
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-//            @Override
-//            public void onItemClick(AdapterView parent, View v, int position, long id){
-//                Toast.makeText(getApplicationContext(),
-//                        searchAdapter.getItem(position).getName(),
-//                        Toast.LENGTH_LONG).show();
-//            }
-//        });
+        ListView listView = (ListView)findViewById(R.id.pv_info_listcontent);
+        final SearchAdapter searchAdapter = new SearchAdapter(this,shopDataList);
+
+        listView.setAdapter(searchAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView parent, View v, int position, long id){
+                Toast.makeText(getApplicationContext(),
+                        searchAdapter.getItem(position).getName(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
 
         Intent intent = getIntent();
 
@@ -48,13 +48,13 @@ public class ShopList extends AppCompatActivity {
 
     }
 
-//    public void InitializeMovieData()
-//    {
-//        movieDataList = new ArrayList<ShopData>();
-//
+    public void InitializeShopData()
+    {
+        shopDataList = new ArrayList<ShopData>();
+
 //        movieDataList.add(new ShopData("cu제주대점", "064-123-4567", "편의", "대충제주대"));
 //        movieDataList.add(new ShopData("김밥천국", "064-987-6543", "식당", "발할라"));
-//    }
+    }
 
     private void MyStartActivity(Class go_to){
         Intent intent = new Intent(ShopList.this, go_to);
