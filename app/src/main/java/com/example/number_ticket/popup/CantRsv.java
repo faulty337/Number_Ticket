@@ -1,7 +1,9 @@
-package com.example.number_ticket;
+package com.example.number_ticket.popup;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.example.number_ticket.R;
 
 public class CantRsv extends Activity {
     @Override

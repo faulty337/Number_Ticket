@@ -1,9 +1,11 @@
-package com.example.number_ticket;
+package com.example.number_ticket.manager;
 
 import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+
+import com.example.number_ticket.R;
 
 public class PvActActivity extends Activity {
     @Override

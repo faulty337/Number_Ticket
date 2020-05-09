@@ -1,4 +1,4 @@
-package com.example.number_ticket;
+package com.example.number_ticket.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.number_ticket.customer.CsRsvActivity;
+import com.example.number_ticket.R;
+import com.example.number_ticket.data.ShopData;
 
 import java.util.ArrayList;
 

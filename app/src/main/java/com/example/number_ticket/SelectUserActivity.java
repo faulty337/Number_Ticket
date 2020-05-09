@@ -7,10 +7,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.number_ticket.customer.SearchShopList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
-import com.google.firebase.firestore.SnapshotMetadata;
 
 public class SelectUserActivity extends AppCompatActivity {
 

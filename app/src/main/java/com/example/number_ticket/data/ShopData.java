@@ -1,4 +1,4 @@
-package com.example.number_ticket;
+package com.example.number_ticket.data;
 
 import androidx.annotation.NonNull;
 

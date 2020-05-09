@@ -1,4 +1,4 @@
-package com.example.number_ticket;
+package com.example.number_ticket.manager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.number_ticket.R;
+import com.example.number_ticket.adapter.SearchAdapter;
+import com.example.number_ticket.data.ShopData;
 
 import java.util.ArrayList;
 

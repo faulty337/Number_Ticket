@@ -1,4 +1,4 @@
-package com.example.number_ticket;
+package com.example.number_ticket.manager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.number_ticket.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class AddShop extends AppCompatActivity {
