@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <view
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
@@ -49,9 +49,8 @@
             android:gravity="center"
             android:text="25"
             android:textColor="#000000"
-            android:textStyle="bold"
             android:textSize="70sp"
-            />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/pv_info_sname"
