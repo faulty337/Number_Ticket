@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.number_ticket.customer.SearchShopList;
+import com.example.number_ticket.manager.ShopList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -50,7 +51,7 @@ public class SelectUserActivity extends AppCompatActivity {
                     myStartActivity(SearchShopList.class);
                     break;
                 case R.id.bt_manager:
-
+                    myStartActivity(ShopList.class);
                     break;
             }
         }

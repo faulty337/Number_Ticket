@@ -111,7 +111,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private  void profileUpdate(){
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         UserInfo userInfo = new UserInfo(name, email, phoneNumber);

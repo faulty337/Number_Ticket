@@ -26,7 +26,6 @@ public class ShopData {
     }
 
 
-
     @NonNull
     @Override
     public String toString() {
