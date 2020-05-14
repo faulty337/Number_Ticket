@@ -30,11 +30,10 @@
 
         <Button
             android:id="@+id/bt_close"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="53dp"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
             android:text="취소"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="#ffffff"
             android:layout_margin="8dp"
             android:gravity="center"
@@ -42,9 +41,8 @@
 
         <Button
             android:id="@+id/bt_ok"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="53dp"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
             android:text="확인"
             android:textSize="18sp"
             android:textColor="#ffffff"
