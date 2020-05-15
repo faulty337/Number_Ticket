@@ -3,7 +3,6 @@ package com.example.number_ticket.manager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -18,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.number_ticket.R;
 import com.example.number_ticket.data.ShopData;
-import com.example.number_ticket.data.UserInfo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -55,7 +53,7 @@ public class AddShop extends AppCompatActivity {
 
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.addservice);
         LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        layoutInflater.inflate(R.layout.activity_add_shop_addservice, linearLayout, true);
+        layoutInflater.inflate(R.layout.activity_add_shop2, linearLayout, true);
 
         Intent intent = getIntent();
 
