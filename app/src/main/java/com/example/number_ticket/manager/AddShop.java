@@ -51,10 +51,6 @@ public class AddShop extends AppCompatActivity {
             }
         });
 
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.addservice);
-        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        layoutInflater.inflate(R.layout.activity_add_shop2, linearLayout, true);
-
         Intent intent = getIntent();
 
        findViewById(R.id.bt_pv_save).setOnClickListener(new View.OnClickListener() {
