@@ -38,7 +38,10 @@ public class AddShop extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_shop);
-
+        ((EditText)findViewById(R.id.et_code)).setClickable(false);
+        ((EditText)findViewById(R.id.et_code)).setFocusable(false);
+        ((EditText)findViewById(R.id.et_code)).setFocusableInTouchMode(false);
+        ((EditText)findViewById(R.id.et_code)).setEnabled(false);
         Switch sw = ((Switch)findViewById(R.id.code_use));
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -67,7 +70,7 @@ public class AddShop extends AppCompatActivity {
     private void MyStartActivity(Class go_to){
         Intent intent = new Intent(AddShop.this, go_to);
         startActivity(intent);
-    }
+    }//화면전환
 
     private void addshop(){
 
