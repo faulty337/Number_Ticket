@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -134,15 +136,6 @@ public class SearchShopList extends AppCompatActivity {
 
         listView.setAdapter(searchAdapter);
         initDatabase();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "아 쉬바좀");
-                Toast.makeText(getApplicationContext(),
-                        searchAdapter.getItem(position).getName(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
     }
     private void initDatabase() {
         db.collection("shop")
@@ -152,8 +145,8 @@ public class SearchShopList extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                shopDataList.add(new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString()));
-                                Log.d(TAG, document.get("code_use").getClass().getClass().toString());
+                                shopDataList.add(new ShopData(document.getData().get("name").toString(), document.getData().get("tel_number").toString(), document.getData().get("type").toString(), document.getData().get("address").toString(),document.getData().get("code").toString(),Boolean.valueOf(document.getData().get("code_use").toString()),document.getData().get("owner").toString()));
+
                             }
                             searchAdapter.notifyDataSetChanged();
                         } else {

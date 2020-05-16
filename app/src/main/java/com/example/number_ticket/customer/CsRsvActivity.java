@@ -12,8 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.number_ticket.R;
 import com.example.number_ticket.data.ShopData;
+import com.example.number_ticket.data.waitingInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -25,6 +28,9 @@ public class CsRsvActivity extends AppCompatActivity
     private FirebaseFirestore db;
     private TextView pv_info_sname;
     private TextView pv_waitnumber;
+    private String shopName;
+    private String owner;
+    private ShopData shopData;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -43,11 +49,13 @@ public class CsRsvActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent = new Intent(CsRsvActivity.this, CsTicketActivity.class);
                 intent.putExtra("name", shopname);
+                shopData.setWaitnumber(shopData.getWaitnumber()+1);
+                shopUpdate();
                 startActivity(intent);
             }
         });
     }
-    private void readshop(String shopName){
+    private void readshop(final String shopName){
         db.collection("shop")
                 .whereEqualTo("name", shopName)
                 .get()
@@ -56,7 +64,8 @@ public class CsRsvActivity extends AppCompatActivity
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                ShopData shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
+                                shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
+                                shopData.setWaitnumber(Integer.parseInt(document.get("waitnumber").toString()));
                                 Log.d(TAG, document.get("code_use").toString());
                                 dataset(shopData);
                             }
@@ -70,4 +79,10 @@ public class CsRsvActivity extends AppCompatActivity
         pv_info_sname.setText(shopData.getName());
         pv_waitnumber.setText(shopData.getWaitnumber() + " 명");
     }
+    private void shopUpdate() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("shop").document(shopname).set(shopData);
+    }
+
 }

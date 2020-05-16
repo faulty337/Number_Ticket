@@ -43,6 +43,25 @@ public class ShopData {
     public void setCode(String code) {
         this.code = code;
     }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public void setTel_number(String tel_number) {
+        this.tel_number = tel_number;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+    public void setUse(Boolean use) {
+        this.use = use;
+    }
+
+    public String getOwner(){
+        return  this.owner;
+    }
     public String getName()
     {
         return this.name;
@@ -62,16 +81,8 @@ public class ShopData {
     {
         return this.address;
     }
-
     public String getCode(){ return this.code; }
-
     public Boolean getCode_use(){ return this.code_use; }
-    
-
-    public void setUse(Boolean use) {
-        this.use = use;
-    }
-
     public Boolean getUse() {
         return use;
     }

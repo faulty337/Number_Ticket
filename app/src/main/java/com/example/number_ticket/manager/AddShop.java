@@ -31,7 +31,7 @@ public class AddShop extends AppCompatActivity {
     private String type;
     private String address;
     private String tel_number;
-    private Boolean code_use;
+    private Boolean code_use = false;
     private String code;
     private String owner;
 
@@ -52,7 +52,6 @@ public class AddShop extends AppCompatActivity {
                 ((EditText)findViewById(R.id.et_code)).setEnabled(isChecked);
             }
         });
-
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.addservice);
         LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         layoutInflater.inflate(R.layout.activity_add_shop_addservice, linearLayout, true);
@@ -82,7 +81,6 @@ public class AddShop extends AppCompatActivity {
         address = ((EditText)findViewById(R.id.et_addr)).getText().toString();
         tel_number = ((EditText)findViewById(R.id.et_spNumber)).getText().toString();
         code = ((EditText)findViewById(R.id.et_code)).getText().toString();
-
         shopUpdate();
         MyStartActivity(ShopList.class);
     }
@@ -91,6 +89,7 @@ public class AddShop extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         owner = user.getUid();
+        Log.d(TAG, owner);
         ShopData shopData = new ShopData(name, tel_number, type, address, code, code_use, owner);
         db.collection("shop").document(name).set(shopData);
     }
