@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.number_ticket.R;
@@ -35,12 +37,30 @@ public class SearchShopList extends AppCompatActivity {
     private SearchAdapter searchAdapter;
     private SearchView searchView;
 
+    Spinner spinner;
     ArrayList<ShopData> shopDataList = new ArrayList<ShopData>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_shop_list);
+
+        spinner = findViewById(R.id.spinner);
+
+        ArrayAdapter monthAdapter = ArrayAdapter.createFromResource(this, R.array.store_search, android.R.layout.simple_spinner_dropdown_item);
+        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(monthAdapter);
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            } //이 오버라이드 메소드에서 position은 몇번째 값이 클릭됬는지 알 수 있습니다.
+            //getItemAtPosition(position)를 통해서 해당 값을 받아올수있습니다.
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
 
         ListView listView = (ListView)findViewById(R.id.shop_search_listView);
         db = FirebaseFirestore.getInstance();

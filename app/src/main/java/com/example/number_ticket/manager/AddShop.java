@@ -3,7 +3,6 @@ package com.example.number_ticket.manager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -18,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.number_ticket.R;
 import com.example.number_ticket.data.ShopData;
-import com.example.number_ticket.data.UserInfo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,7 +38,10 @@ public class AddShop extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_shop);
-
+        ((EditText)findViewById(R.id.et_code)).setClickable(false);
+        ((EditText)findViewById(R.id.et_code)).setFocusable(false);
+        ((EditText)findViewById(R.id.et_code)).setFocusableInTouchMode(false);
+        ((EditText)findViewById(R.id.et_code)).setEnabled(false);
         Switch sw = ((Switch)findViewById(R.id.code_use));
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -52,9 +53,7 @@ public class AddShop extends AppCompatActivity {
                 ((EditText)findViewById(R.id.et_code)).setEnabled(isChecked);
             }
         });
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.addservice);
-        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        layoutInflater.inflate(R.layout.activity_add_shop_addservice, linearLayout, true);
+
 
         Intent intent = getIntent();
 
@@ -72,7 +71,7 @@ public class AddShop extends AppCompatActivity {
     private void MyStartActivity(Class go_to){
         Intent intent = new Intent(AddShop.this, go_to);
         startActivity(intent);
-    }
+    }//화면전환
 
     private void addshop(){
 

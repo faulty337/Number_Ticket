@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="store_search">
+        <item>가게명(업종명)</item>
+        <item>도로명(지번)</item>
+    </string-array>
+</resources>

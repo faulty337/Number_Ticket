@@ -203,7 +203,7 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="20dp"
                     android:gravity="center"
-                    android:text="사용자가 직접 가게로 와서 번호표를 받게 하고 싶으시면 코드사용 여부를 체크해주세요. 코드는 제공자가 직접 입력해야 합니다. 코드를 사용하지 않으시려면 체크해제 후 저장을 눌러주세요"
+                    android:text="사용자가 직접 가게로 와서 번호표를 받게 하고 싶으시면 코드사용 여부를 체크해주세요. 코드는 제공자가 직접 입력해야 합니다. 코드를 사용하지 않으시려면 체크해제 후 아무것도 입력하지 않으셔도 됩니다."
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
@@ -240,20 +240,55 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:text="서비스 제공 공간 수"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_service_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:hint="입력하지 않을 시 1개입니다."
+                        android:padding="7dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="340dp"
+                    android:layout_height="102dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:text="식당이면 테이블 수와 같은 매장내에 서비스를 최대로 동시에 제공할 수 있는 공간의 수를 입력해주세요"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:paddingLeft="10dp"
-                        android:text="고급대기시간설정여부"
+                        android:text="다양한 대기시간 설정여부"
                         android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <Switch
-                        android:id="@+id/expand_set_waittime"
+                        android:id="@+id/sevice_expanded_switch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -262,68 +297,31 @@
 
                 <TextView
                     android:layout_width="340dp"
-                    android:layout_height="190dp"
+                    android:layout_height="193dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="20dp"
                     android:gravity="center"
-                    android:text="고급대기시간설정여부는 식당과 같은 업종처럼 각 서비스의 대기시간 차이가 반드시 발생할때 설정 하실 수 있습니다. 각 서비스마다 대기시간을 설정하고 대기시간을 계산해 고객에게 보여줄 수 있습니다. 설정하지 않으시면 아래에 하나의 대기시간만 기입하시면 됩니다."
+                    android:text="식당처럼 각 서비스 별 대기시간(서비스제공시간)이 다른 경우엔 각각 대기시간을 다르게 부여할 수 있습니다. 서비스가 하나인 경우엔 스위치를 비활성화 시키고 대기시간만 입력하고, 여러개인 경우엔 스위치를 활성화만 시키면 됩니다."
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
-<!--                <LinearLayout-->
-<!--                    android:id="@+id/addservice"-->
-<!--                    android:layout_width="330dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_marginBottom="40dp"-->
-<!--                    android:orientation="vertical">-->
+                <LinearLayout
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="center">
 
-<!--                    <TextView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginBottom="10dp"-->
-<!--                        android:paddingLeft="10dp"-->
-<!--                        android:text="서비스 대기시간 설정"-->
-<!--                        android:textColor="#000000"-->
-<!--                        android:textSize="20sp"-->
-<!--                        android:textStyle="bold" />-->
+                    <EditText
+                        android:id="@+id/et_service_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border"
+                        android:hint="대기시간(단위:분) 또는 서비스 개수 입력"
+                        android:padding="7dp" />
+                </LinearLayout>
 
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginBottom="7dp">-->
-
-<!--                        <EditText-->
-<!--                            android:id="@+id/et_service_name"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:background="@drawable/border"-->
-<!--                            android:ems="10"-->
-<!--                            android:hint="서비스이름"-->
-<!--                            android:padding="7dp" />-->
-
-<!--                        <EditText-->
-<!--                            android:id="@+id/et_service_time"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginLeft="10dp"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:background="@drawable/border"-->
-<!--                            android:ems="10"-->
-<!--                            android:hint="대기시간(단위:분)"-->
-<!--                            android:padding="7dp" />-->
-<!--                    </LinearLayout>-->
-
-<!--                    <Button-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:background="@null"-->
-<!--                        android:text="+서비스 및 대기시간 추가"-->
-<!--                        android:textSize="20sp"-->
-<!--                        android:textColor="#000000"/>-->
-<!--                </LinearLayout>-->
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -331,7 +329,7 @@
         android:id="@+id/bt_pv_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="저장"
+        android:text="저장 혹은 다음으로"
         android:textSize="18sp"
         android:textColor="#ffffff"
         android:textStyle="bold"
