@@ -308,7 +308,7 @@
                 <LinearLayout
                     android:layout_width="330dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="30dp"
                     android:layout_gravity="center">
 
                     <EditText
@@ -318,10 +318,28 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/border"
-                        android:hint="대기시간(단위:분) 또는 서비스 개수 입력"
+                        android:hint="대기시간(단위:분)을 입력해주세요."
                         android:padding="7dp" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="9"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp">
+
+                    <Button
+                        android:id="@+id/bt_add_sevicetime"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bluebutton"
+                        android:textStyle="bold"
+                        android:text="+서비스 및 대기시간 추가"
+                        android:textSize="18sp"
+                        android:textColor="#000000"/>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -329,7 +347,7 @@
         android:id="@+id/bt_pv_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="저장 혹은 다음으로"
+        android:text="저장"
         android:textSize="18sp"
         android:textColor="#ffffff"
         android:textStyle="bold"
