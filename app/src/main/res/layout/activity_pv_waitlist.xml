@@ -66,6 +66,10 @@
             android:textStyle="bold"
             android:textSize="18sp"
             android:background="@drawable/downborder" />
+        <ListView
+            android:id="@+id/pv_wait_listcontent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -80,6 +80,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/pv_info_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginTop="20dp"
@@ -90,6 +91,7 @@
                 android:textStyle="bold" />
 
             <Button
+                android:id="@+id/pv_info_del"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
