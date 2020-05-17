@@ -39,10 +39,12 @@ public class AddShop extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_shop);
+
         ((EditText)findViewById(R.id.et_code)).setClickable(false);
         ((EditText)findViewById(R.id.et_code)).setFocusable(false);
         ((EditText)findViewById(R.id.et_code)).setFocusableInTouchMode(false);
         ((EditText)findViewById(R.id.et_code)).setEnabled(false);
+        //switch버튼 초기값을 fasle로 설정
         Switch sw = ((Switch)findViewById(R.id.code_use));
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -53,18 +55,24 @@ public class AddShop extends AppCompatActivity {
                 ((EditText)findViewById(R.id.et_code)).setFocusableInTouchMode(isChecked);
                 ((EditText)findViewById(R.id.et_code)).setEnabled(isChecked);
             }
-        });
+        });//false면 코드입력 불가능하게 하는 코드
 
 
         Intent intent = getIntent();
+
+        findViewById(R.id.bt_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyStartActivity(ShopList.class);
+            }
+        });//뒤로가기
 
        findViewById(R.id.bt_pv_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addshop();
             }
-        });
-
+        });//버튼 클릭 시 firebase에 data저장
         mAuth = FirebaseAuth.getInstance();
 
     }
@@ -75,7 +83,6 @@ public class AddShop extends AppCompatActivity {
     }//화면전환
 
     private void addshop(){
-
         name = ((EditText)findViewById(R.id.et_sname)).getText().toString(); //추가하는 부분 코드
         type = ((EditText)findViewById(R.id.et_sgroup)).getText().toString();
         address = ((EditText)findViewById(R.id.et_addr)).getText().toString();

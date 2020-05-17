@@ -43,7 +43,7 @@ public class SearchAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View converView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View view = mLayoutInflater.inflate(R.layout.activity_search_shop_list_content, null);
 
         TextView SName = (TextView)view.findViewById(R.id.shop_name);
