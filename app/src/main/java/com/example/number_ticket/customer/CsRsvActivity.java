@@ -25,6 +25,7 @@ public class CsRsvActivity extends AppCompatActivity
 {
     private static final String TAG = "CsRsvActivity";
     private String shopname;
+    private int wait_number;
     private FirebaseFirestore db;
     private TextView pv_info_sname;
     private TextView pv_waitnumber;
@@ -44,12 +45,13 @@ public class CsRsvActivity extends AppCompatActivity
         Log.d(TAG, shopname);
         db = FirebaseFirestore.getInstance();
         readshop(shopname);
+        waitnumber_count();
         giveticket.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CsRsvActivity.this, CsTicketActivity.class);
                 intent.putExtra("name", shopname);
-                shopData.setWaitnumber(shopData.getWaitnumber()+1);
+                shopData.setWaitnumber(wait_number);
                 shopUpdate();
                 startActivity(intent);
             }
@@ -66,7 +68,6 @@ public class CsRsvActivity extends AppCompatActivity
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
                                 shopData.setWaitnumber(Integer.parseInt(document.get("waitnumber").toString()));
-                                Log.d(TAG, document.get("code_use").toString());
                                 dataset(shopData);
                             }
                         } else {
@@ -75,9 +76,26 @@ public class CsRsvActivity extends AppCompatActivity
                     }
                 });
     }
+    private void waitnumber_count(){
+        db.collection("shop")
+                .document(shopname)
+                .collection("waitinglist")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    wait_number = task.getResult().size();
+                    pv_waitnumber.setText(wait_number + " 명");
+                    Log.d(TAG, wait_number+"Aaa");
+
+                }
+            }
+        });
+    }
     private void dataset(ShopData shopData){
         pv_info_sname.setText(shopData.getName());
-        pv_waitnumber.setText(shopData.getWaitnumber() + " 명");
+
     }
     private void shopUpdate() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

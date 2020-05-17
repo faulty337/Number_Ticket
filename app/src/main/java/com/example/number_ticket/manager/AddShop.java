@@ -75,7 +75,6 @@ public class AddShop extends AppCompatActivity {
     }//화면전환
 
     private void addshop(){
-
         name = ((EditText)findViewById(R.id.et_sname)).getText().toString(); //추가하는 부분 코드
         type = ((EditText)findViewById(R.id.et_sgroup)).getText().toString();
         address = ((EditText)findViewById(R.id.et_addr)).getText().toString();

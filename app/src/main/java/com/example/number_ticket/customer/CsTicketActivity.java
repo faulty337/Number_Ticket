@@ -118,6 +118,7 @@ public class CsTicketActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         customer = user.getUid();
         waitingInfo waitingData = new waitingInfo(ticket_number, start_time, "aa", wait_number);
+        waitingData.setUID(customer);
         db.collection("shop").document(shopName).collection("waitinglist").document(customer).set(waitingData);
     }
 

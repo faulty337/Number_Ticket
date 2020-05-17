@@ -4,6 +4,7 @@ public class waitingInfo {
     private String time;
     private int waiting_number;
     private String waitingtime;
+    private String UID;
 
     public waitingInfo(int ticket_number, String time, String waitingtime, int waiting_number) {
         super();
@@ -13,6 +14,9 @@ public class waitingInfo {
         this.waiting_number = waiting_number;
     }
 
+    public String getUID() {
+        return UID;
+    }
 
     public int getTicket_number() {
         return ticket_number;
@@ -40,6 +44,14 @@ public class waitingInfo {
 
     public void setWaitingtime(String waitingtime) {
         this.waitingtime = waitingtime;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
+    }
+
+    public void setWaiting_number(int waiting_number) {
+        this.waiting_number = waiting_number;
     }
 }
 
