@@ -15,6 +15,11 @@ public class UserInfo {
         this.id = id;
         this.phoneNumber = phoneNumber;
     }
+
+    public String getId() {
+        return id;
+    }
+
     public String getName(){
         return this.name;
     }
@@ -31,9 +36,6 @@ public class UserInfo {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getid(){
-        return this.id;
-    }
 
     public void setid(String id){
         this.id = id;
