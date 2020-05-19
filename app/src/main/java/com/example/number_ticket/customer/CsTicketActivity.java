@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,6 +33,7 @@ public class CsTicketActivity extends AppCompatActivity {
     private int wait_number; //대기인원?
     private String start_time; //발급 시간
     private String customer;
+    private String username;
     private FirebaseFirestore db;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private WaitingInfo waitingData;
@@ -52,6 +54,7 @@ public class CsTicketActivity extends AppCompatActivity {
         Log.d(TAG, ticket_number+"");
         db = FirebaseFirestore.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
+        nameset(ticket_number);
         ticket_num = findViewById(R.id.ticket_num);
         ticket_num.setText(ticket_number+"");
         shopname = findViewById(R.id.ticket_num);
@@ -63,7 +66,7 @@ public class CsTicketActivity extends AppCompatActivity {
         cancel.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                db.collection("shop").document(shopName).collection("waitinglist").document(user.getUid())
+                db.collection("shop").document(shopName).collection("waitinglist").document(user.getEmail())
                         .delete()
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -83,8 +86,6 @@ public class CsTicketActivity extends AppCompatActivity {
             }
         });
         dataget();
-        waitinglistset(ticket_number);
-        waitnumber_count();
 
     }
 
@@ -122,7 +123,8 @@ public class CsTicketActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         customer = user.getEmail();
         waitingData = new WaitingInfo(ticket_n, start_time, "aa", wait_number);
-        waitingData.setEmail(customer);
+        waitingData.setEmail(user.getEmail());
+        waitingData.setName(username);
         db.collection("shop").document(shopName).collection("waitinglist").document(customer).set(waitingData);
     }
     private void waitnumber_count(){
@@ -137,6 +139,21 @@ public class CsTicketActivity extends AppCompatActivity {
                             wait_number = task.getResult().size();
                             waitnumber.setText(wait_number + " 명");
                             Log.d(TAG, wait_number+"Aaa");
+                        }
+                    }
+                });
+    }
+    private void nameset(final int ticket_number){
+        db.collection("users").document(user.getEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot document = task.getResult();
+                        if(document.exists()){
+                            username = document.getData().get("name").toString();
+                            waitinglistset(ticket_number);
+                            waitnumber_count();
                         }
                     }
                 });
