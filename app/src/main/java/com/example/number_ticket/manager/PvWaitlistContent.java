@@ -16,18 +16,18 @@ public class PvWaitlistContent extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pv_waitlist_content);
 
-        onoff = (ImageButton)findViewById(R.id.bt_onoff);
-        waittime = (TextView)findViewById(R.id.cs_waittime);
+//        onoff = (ImageButton)findViewById(R.id.bt_onoff);
+//        waittime = (TextView)findViewById(R.id.cs_waittime);
     }
 
-    public void onClick(View view) {
-        switch (view.getId())
-        {
-            case R.id.bt_onoff:
-                onoff.setImageResource(R.drawable.onbt);
-                waittime.setText("이용중");
-                onoff.setEnabled(false);
-                break;
-        }
-    }
+//    public void onClick(View view) {
+//        switch (view.getId())
+//        {
+//            case R.id.bt_onoff:
+//                onoff.setImageResource(R.drawable.onbt);
+//                waittime.setText("이용중");
+//                onoff.setEnabled(false);
+//                break;
+//        }
+//    }
 }
