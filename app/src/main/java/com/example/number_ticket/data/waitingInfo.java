@@ -1,12 +1,13 @@
 package com.example.number_ticket.data;
-public class waitingInfo {
+public class WaitingInfo {
     private int ticket_number;
     private String time;
     private int waiting_number;
     private String waitingtime;
     private String UID;
+    private String name;
 
-    public waitingInfo(int ticket_number, String time, String waitingtime, int waiting_number) {
+    public WaitingInfo(int ticket_number, String time, String waitingtime, int waiting_number) {
         super();
         this.ticket_number = ticket_number;
         this.time = time;
@@ -34,6 +35,10 @@ public class waitingInfo {
         return waiting_number;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setTicket_number(int present_number) {
         this.ticket_number = present_number;
     }
@@ -52,6 +57,10 @@ public class waitingInfo {
 
     public void setWaiting_number(int waiting_number) {
         this.waiting_number = waiting_number;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
 
