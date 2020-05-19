@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -29,33 +30,65 @@ public class CsRsvActivity extends AppCompatActivity
     private FirebaseFirestore db;
     private TextView pv_info_sname;
     private TextView pv_waitnumber;
-    private String shopName;
-    private String owner;
+    private Intent intent;
+    private int ticket_number;
     private ShopData shopData;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cs_rsv);
-        Intent intent = getIntent();
+        Intent intent1 = getIntent();
+        intent = new Intent(CsRsvActivity.this, CsTicketActivity.class);
         Button giveticket = findViewById(R.id.bt_give_number);
-        shopname = intent.getExtras().getString("name");
+        shopname = intent1.getExtras().getString("name");
         pv_info_sname = findViewById(R.id.pv_info_sname);
         pv_waitnumber = findViewById(R.id.pv_waitnumber);
-        Log.d(TAG, shopname);
         db = FirebaseFirestore.getInstance();
+
         readshop(shopname);
         waitnumber_count();
         giveticket.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CsRsvActivity.this, CsTicketActivity.class);
                 intent.putExtra("name", shopname);
                 shopData.setWaitnumber(wait_number);
                 shopUpdate();
-                startActivity(intent);
+                ticketNumber_get();
+
             }
         });
+
+    }
+    private void ticketNumber_get(){
+        Query docRef = db.collection("shop").document(shopname).collection("waitinglist").orderBy("waiting_number").limit(1);
+        if(docRef != null){
+            Log.d(TAG, "존재함");
+            docRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        if(task.getResult().size() !=0){
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                ticket_number = Integer.parseInt(document.getData().get("ticket_number").toString())+ 1;
+                                intent.putExtra("ticket", ticket_number+"");
+                                startActivity(intent);
+                            }
+                        }else{
+                            Log.d(TAG, "비어있음");
+                            ticket_number = 1;
+                            intent.putExtra("ticket", ticket_number+"");
+                            Log.d(TAG, ticket_number+"");
+                            startActivity(intent);
+                        }
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                }
+            });
+        }else{
+
+        }
     }
     private void readshop(final String shopName){
         db.collection("shop")
@@ -88,7 +121,6 @@ public class CsRsvActivity extends AppCompatActivity
                     wait_number = task.getResult().size();
                     pv_waitnumber.setText(wait_number + " 명");
                     Log.d(TAG, wait_number+"Aaa");
-
                 }
             }
         });

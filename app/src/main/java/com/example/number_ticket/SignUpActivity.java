@@ -113,8 +113,9 @@ public class SignUpActivity extends AppCompatActivity {
     private  void profileUpdate(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Log.d(TAG, user.getUid());
         UserInfo userInfo = new UserInfo(name, email, phoneNumber);
-        db.collection("users").document(user.getUid()).set(userInfo);
+        db.collection("users").document(email).set(userInfo);
     }
 
     private void openToast(String text){
