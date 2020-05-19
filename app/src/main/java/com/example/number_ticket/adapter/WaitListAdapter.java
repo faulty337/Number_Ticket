@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.number_ticket.R;
-import com.example.number_ticket.data.waitingInfo;
+import com.example.number_ticket.data.WaitingInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -26,10 +26,10 @@ public class WaitListAdapter extends BaseAdapter {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     Context mContext = null;
     LayoutInflater mLayoutInflater = null;
-    ArrayList<waitingInfo> sample;
+    ArrayList<WaitingInfo> sample;
     private String username;
 
-    public WaitListAdapter(Context context, ArrayList<waitingInfo> data){
+    public WaitListAdapter(Context context, ArrayList<WaitingInfo> data){
         mContext = context;
         sample = data;
         mLayoutInflater = LayoutInflater.from(mContext);

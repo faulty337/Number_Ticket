@@ -5,27 +5,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.number_ticket.R;
-import com.example.number_ticket.data.ShopData;
-import com.example.number_ticket.data.waitingInfo;
+import com.example.number_ticket.data.WaitingInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
@@ -39,7 +34,7 @@ public class CsTicketActivity extends AppCompatActivity {
     private String customer;
     private FirebaseFirestore db;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private waitingInfo waitingData;
+    private WaitingInfo waitingData;
     private TextView ticket_num;
     private TextView shopname;
     private TextView time;
@@ -126,7 +121,7 @@ public class CsTicketActivity extends AppCompatActivity {
     private void waitinglistset(int ticket_n) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         customer = user.getUid();
-        waitingData = new waitingInfo(ticket_n, start_time, "aa", wait_number);
+        waitingData = new WaitingInfo(ticket_n, start_time, "aa", wait_number);
         waitingData.setUID(customer);
         db.collection("shop").document(shopName).collection("waitinglist").document(customer).set(waitingData);
     }
