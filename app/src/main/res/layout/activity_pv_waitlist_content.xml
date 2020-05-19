@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:onClick="onClick">
+    android:background="#ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,17 +49,19 @@
                 android:text="예상 대기시간: 00~00분"
                 android:textColor="#000000"
                 android:textSize="12sp" />
+
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/bt_on"
+            android:id="@+id/bt_onoff"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/checkbt"
             android:adjustViewBounds="true"
+            android:src="@drawable/OFFbt"
             android:background="#00FFFFFF"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter"
+            android:onClick="onClick"/>
 
         <ImageButton
             android:id="@+id/bt_alarm"

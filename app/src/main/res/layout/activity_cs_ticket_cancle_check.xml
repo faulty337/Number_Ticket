@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pop_up_draw">
+
+    <LinearLayout
+        android:paddingTop="18dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="정말로 예약을 \n취소 하시겠습니까?"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginBottom="3dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <Button
+            android:id="@+id/bt_close"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="아니오"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:background="@drawable/graybutton" />
+
+        <Button
+            android:id="@+id/bt_ok"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="네"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:background="@drawable/redbutton" />
+    </LinearLayout>
+</LinearLayout>

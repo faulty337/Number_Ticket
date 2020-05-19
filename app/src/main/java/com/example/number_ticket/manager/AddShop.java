@@ -33,6 +33,8 @@ public class AddShop extends AppCompatActivity {
     private Boolean code_use = false;
     private String code;
     private String owner;
+    private LinearLayout code_layout;
+    private LinearLayout service_add_layout;
 
 
     @Override
@@ -52,6 +54,15 @@ public class AddShop extends AppCompatActivity {
                 ((EditText)findViewById(R.id.et_code)).setFocusable(isChecked);
                 ((EditText)findViewById(R.id.et_code)).setFocusableInTouchMode(isChecked);
                 ((EditText)findViewById(R.id.et_code)).setEnabled(isChecked);
+                code_layout.setVisibility(View.VISIBLE);
+            }
+        });
+
+        Switch service_expand = ((Switch)findViewById(R.id.sevice_expanded_switch));
+        service_expand.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                service_add_layout.setVisibility(View.VISIBLE);
             }
         });
 
