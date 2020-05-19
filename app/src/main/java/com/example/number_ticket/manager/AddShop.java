@@ -106,7 +106,7 @@ public class AddShop extends AppCompatActivity {
     private void shopUpdate() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        owner = user.getUid();
+        owner = user.getEmail();
         Log.d(TAG, owner);
         ShopData shopData = new ShopData(name, tel_number, type, address, code, code_use, owner);
         db.collection("shop").document(name).set(shopData);

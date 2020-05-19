@@ -4,7 +4,7 @@ public class WaitingInfo {
     private String time;
     private int waiting_number;
     private String waitingtime;
-    private String UID;
+    private String email;
     private String name;
 
     public WaitingInfo(int ticket_number, String time, String waitingtime, int waiting_number) {
@@ -15,8 +15,8 @@ public class WaitingInfo {
         this.waiting_number = waiting_number;
     }
 
-    public String getUID() {
-        return UID;
+    public String getEmail() {
+        return email;
     }
 
     public int getTicket_number() {
@@ -51,8 +51,8 @@ public class WaitingInfo {
         this.waitingtime = waitingtime;
     }
 
-    public void setUID(String UID) {
-        this.UID = UID;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setWaiting_number(int waiting_number) {

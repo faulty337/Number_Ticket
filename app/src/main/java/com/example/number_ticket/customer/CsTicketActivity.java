@@ -120,9 +120,9 @@ public class CsTicketActivity extends AppCompatActivity {
 
     private void waitinglistset(int ticket_n) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        customer = user.getUid();
+        customer = user.getEmail();
         waitingData = new WaitingInfo(ticket_n, start_time, "aa", wait_number);
-        waitingData.setUID(customer);
+        waitingData.setEmail(customer);
         db.collection("shop").document(shopName).collection("waitinglist").document(customer).set(waitingData);
     }
     private void waitnumber_count(){

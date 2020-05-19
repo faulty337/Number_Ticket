@@ -86,6 +86,8 @@ public class SignUpActivity extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
                                                         openToast("사용자업데이트에 성공하엿습니다.");
+                                                        profileUpdate();
+                                                        gotoLogin();
                                                     }
                                                 }
                                             });
@@ -98,8 +100,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 // ...
                             }
                         });
-                profileUpdate();
-                gotoLogin();
+
             } else {
                 openToast("비밀번호가 일치하지 않습니다.");
             }

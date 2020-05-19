@@ -47,7 +47,7 @@ public class WaitListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        getname(sample.get(position).getUID());
+        getname(sample.get(position).getEmail());
         View view = mLayoutInflater.inflate(R.layout.activity_pv_waitlist_content, null);
         TextView number = (TextView)view.findViewById(R.id.cs_number);
         TextView name = (TextView)view.findViewById(R.id.cs_name);
@@ -60,8 +60,8 @@ public class WaitListAdapter extends BaseAdapter {
         return view;
     }
 
-    public void getname(String Uid){
-        DocumentReference docRef = db.collection("users").document(Uid);
+    public void getname(String email){
+        DocumentReference docRef = db.collection("users").document(email);
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
