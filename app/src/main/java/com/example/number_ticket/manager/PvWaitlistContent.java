@@ -24,7 +24,7 @@ public class PvWaitlistContent extends Activity {
         switch (view.getId())
         {
             case R.id.bt_onoff:
-                onoff.setImageResource(R.drawable.ONbt);
+                onoff.setImageResource(R.drawable.onbt);
                 waittime.setText("이용중");
                 onoff.setEnabled(false);
                 break;

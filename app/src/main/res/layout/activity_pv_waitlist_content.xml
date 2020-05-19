@@ -58,7 +58,7 @@
             android:layout_height="55dp"
             android:layout_marginLeft="5dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/OFFbt"
+            android:src="@drawable/offbt"
             android:background="#00FFFFFF"
             android:scaleType="fitCenter"
             android:onClick="onClick"/>
