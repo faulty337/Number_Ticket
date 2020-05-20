@@ -5,14 +5,19 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.number_ticket.R;
 import com.example.number_ticket.customer.CsRsvActivity;
 import com.example.number_ticket.data.ShopData;
 import com.example.number_ticket.manager.AddShop;
+import com.example.number_ticket.manager.PvActActivity;
+import com.example.number_ticket.manager.ShopList;
 
 import java.util.ArrayList;
 
@@ -52,6 +57,14 @@ public class ShopListAdapter extends BaseAdapter {
         SGroup.setText(sample.get(position).getType());
         TelNumber.setText(sample.get(position).getTel_number());
         Saddr.setText(sample.get(position).getAddress());
+        SName.setOnClickListener(new TextView.OnClickListener(){
+            public void onClick(View v){
+                String shopName = sample.get(position).getName();
+                Intent intent = new Intent(mContext.getApplicationContext(), PvActActivity.class);
+                intent.putExtra("name", shopName);
+                mContext.startActivity(intent);
+            }
+        });
         SRes1.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
                 String shopName = sample.get(position).getName();
@@ -68,7 +81,6 @@ public class ShopListAdapter extends BaseAdapter {
                 mContext.startActivity(intent);
             }
         });
-
 
         return view;
     }

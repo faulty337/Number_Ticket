@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,6 +27,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+
+import static android.widget.AdapterView.*;
 
 public class ShopList extends AppCompatActivity {
     private static final String TAG = "ShopListActivity";
@@ -46,7 +50,14 @@ public class ShopList extends AppCompatActivity {
 
         listView.setAdapter(shopListAdapter);
 
-        Intent intent = getIntent();//SelectUser -> ShopList
+//        listView.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(ShopList.this, "asdf", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+        Intent intent1 = getIntent();//SelectUser -> ShopList
 
         Intent intent2 = getIntent();//Addshop -> ShopList
 
@@ -57,13 +68,15 @@ public class ShopList extends AppCompatActivity {
             }
         });//AddShop 이동
 
+
+
     }
 
     public void InitializeShopData()
     {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db.collection("shop")
-                .whereEqualTo("owner", user.getUid())
+                .whereEqualTo("owner", user.getEmail())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

@@ -1,6 +1,7 @@
 package com.example.number_ticket.manager;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -12,8 +13,10 @@ import com.example.number_ticket.adapter.WaitListAdapter;
 import com.example.number_ticket.data.WaitingInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.api.LogDescriptor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -25,14 +28,15 @@ public class PvWaitlistActivity extends Activity {
     private FirebaseFirestore db;
     ArrayList<WaitingInfo> waitlist = new ArrayList<WaitingInfo>();;
     private WaitListAdapter waitListAdapter;
-
+    private String shopname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pv_waitlist);
         db = FirebaseFirestore.getInstance();
-
+        Intent intent = getIntent();
+        shopname = intent.getExtras().getString("name");
         this.InitializeShopData();
 
         ListView listView = (ListView)findViewById(R.id.pv_wait_listcontent);
@@ -45,16 +49,17 @@ public class PvWaitlistActivity extends Activity {
 
     private void InitializeShopData() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        db.collection("shop")
-                .whereEqualTo("owner", user.getUid())
+        db.collection("shop").document(shopname).collection("waitinglist")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                waitlist.add(new WaitingInfo(Integer.parseInt(document.get("ticket_number").toString()), document.get("time").toString(), document.get("waitingtime").toString(), Integer.parseInt(document.get("waiting_number").toString())));
-                                Log.d(TAG, document.get("code_use").getClass().getClass().toString());
+                                WaitingInfo waitingInfo = new WaitingInfo(Integer.parseInt(document.get("ticket_number").toString()), document.get("time").toString(), document.get("waitingtime").toString(), Integer.parseInt(document.get("waiting_number").toString()));
+                                waitingInfo.setEmail(document.get("email").toString());
+                                waitingInfo.setName(document.get("name").toString());
+                                waitlist.add(waitingInfo);
                             }
                             waitListAdapter.notifyDataSetChanged();
                         } else {
@@ -63,4 +68,6 @@ public class PvWaitlistActivity extends Activity {
                     }
                 });
     }
+
+
 }

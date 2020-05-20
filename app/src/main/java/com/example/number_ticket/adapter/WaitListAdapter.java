@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,7 +28,8 @@ public class WaitListAdapter extends BaseAdapter {
     Context mContext = null;
     LayoutInflater mLayoutInflater = null;
     ArrayList<WaitingInfo> sample;
-    private String username;
+    private ImageButton onoff;
+    private TextView waittime;
 
     public WaitListAdapter(Context context, ArrayList<WaitingInfo> data){
         mContext = context;
@@ -44,40 +46,29 @@ public class WaitListAdapter extends BaseAdapter {
     @Override
     public Object getItem(int position) { return sample.get(position); }
 
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        getname(sample.get(position).getEmail());
         View view = mLayoutInflater.inflate(R.layout.activity_pv_waitlist_content, null);
         TextView number = (TextView)view.findViewById(R.id.cs_number);
         TextView name = (TextView)view.findViewById(R.id.cs_name);
-        TextView waittime = (TextView)view.findViewById(R.id.cs_waittime);
-        
-        number.setText(sample.get(position).getWaiting_number());
+        waittime = (TextView)view.findViewById(R.id.cs_waittime);
+        onoff = (ImageButton)view.findViewById(R.id.bt_onoff);
+
+
+        onoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onoff.setImageResource(R.drawable.onbt);
+                waittime.setText("이용중");
+                onoff.setEnabled(false);
+            }
+        });
+        name.setText(sample.get(position).getName());
+        number.setText(sample.get(position).getTicket_number()+"");
         waittime.setText(sample.get(position).getWaitingtime());
         Log.d(TAG, "getView: ddd");
-        name.setText(username);
+
         return view;
     }
 
-    public void getname(String email){
-        DocumentReference docRef = db.collection("users").document(email);
-
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        username = document.getData().get("name").toString();
-                        Log.d(TAG, "aaaa");
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
-    }
 }
