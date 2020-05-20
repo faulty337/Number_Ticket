@@ -208,6 +208,7 @@
                     android:textSize="20sp" />
 
                 <LinearLayout
+                    android:id="@+id/code_input"
                     android:layout_width="330dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -324,6 +325,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/service_input"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="9"

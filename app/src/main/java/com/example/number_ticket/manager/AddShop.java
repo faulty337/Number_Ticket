@@ -47,6 +47,9 @@ public class AddShop extends AppCompatActivity {
         ((EditText)findViewById(R.id.et_code)).setFocusableInTouchMode(false);
         ((EditText)findViewById(R.id.et_code)).setEnabled(false);
         //switch버튼 초기값을 fasle로 설정
+        code_layout = findViewById(R.id.code_input);
+        service_add_layout = findViewById(R.id.service_input);
+
         Switch sw = ((Switch)findViewById(R.id.code_use));
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -56,7 +59,11 @@ public class AddShop extends AppCompatActivity {
                 ((EditText)findViewById(R.id.et_code)).setFocusable(isChecked);
                 ((EditText)findViewById(R.id.et_code)).setFocusableInTouchMode(isChecked);
                 ((EditText)findViewById(R.id.et_code)).setEnabled(isChecked);
-                code_layout.setVisibility(View.VISIBLE);
+                if (isChecked){
+                    code_layout.setVisibility(View.VISIBLE);
+                }else{
+                    code_layout.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
@@ -64,7 +71,12 @@ public class AddShop extends AppCompatActivity {
         service_expand.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                service_add_layout.setVisibility(View.VISIBLE);
+                if (isChecked){
+                    service_add_layout.setVisibility(View.VISIBLE);
+                }else {
+                    service_add_layout.setVisibility(View.INVISIBLE);
+                }
+
             }
         });//false면 코드입력 불가능하게 하는 코드
 
