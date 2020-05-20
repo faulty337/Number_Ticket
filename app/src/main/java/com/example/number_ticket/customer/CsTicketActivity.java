@@ -18,7 +18,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -138,7 +137,6 @@ public class CsTicketActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             wait_number = task.getResult().size();
                             waitnumber.setText(wait_number + " 명");
-                            Log.d(TAG, wait_number+"Aaa");
                         }
                     }
                 });

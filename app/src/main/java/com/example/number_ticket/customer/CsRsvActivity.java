@@ -1,15 +1,19 @@
 package com.example.number_ticket.customer;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.number_ticket.MainActivity;
 import com.example.number_ticket.R;
 import com.example.number_ticket.data.ShopData;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +29,7 @@ public class CsRsvActivity extends AppCompatActivity
 {
     private static final String TAG = "CsRsvActivity";
     private String shopname;
+    private Boolean shopuse;
     private int wait_number;
     private FirebaseFirestore db;
     private TextView pv_info_sname;
@@ -50,11 +55,15 @@ public class CsRsvActivity extends AppCompatActivity
         giveticket.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                intent.putExtra("name", shopname);
-                shopData.setWaitnumber(wait_number);
-                shopUpdate();
-                ticketNumber_get();
-
+                Log.d(TAG, shopuse.toString());
+                if(shopuse){
+                    intent.putExtra("name", shopname);
+                    shopData.setWaitnumber(wait_number);
+                    shopUpdate();
+                    ticketNumber_get();
+                }else{
+                    dialog_set();
+                }
             }
         });
 
@@ -100,6 +109,8 @@ public class CsRsvActivity extends AppCompatActivity
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
                                 shopData.setWaitnumber(Integer.parseInt(document.get("waitnumber").toString()));
+                                shopData.setUse(Boolean.valueOf(document.get("use").toString()));
+                                shopuse = shopData.getUse();
                                 dataset(shopData);
                             }
                         } else {
@@ -132,6 +143,19 @@ public class CsRsvActivity extends AppCompatActivity
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("shop").document(shopname).set(shopData);
+    }
+    private void dialog_set(){
+        AlertDialog.Builder popup = new AlertDialog.Builder(CsRsvActivity.this);
+        popup.setTitle("알림");
+        popup.setMessage("현재 대기표를 받지 않습니다. 전화로 예약해주세요");
+
+        popup.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        popup.show();
     }
 
 }
