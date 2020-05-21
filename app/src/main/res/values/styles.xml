@@ -7,7 +7,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-<<<<<<< HEAD
 
     <style name="MySaveAlertTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="buttonBarNegativeButtonStyle">@style/buttonBarButtonStyle.Negative</item>
@@ -37,14 +36,4 @@
     <style name="buttonBarButtonStyle.RedPositive">
         <item name="android:textColor">@color/red1</item>
     </style>
-
-=======
-    <style name="popupTheme" parent="Theme.AppCompat.DayNight.Dialog">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
->>>>>>> feature/service_add
 </resources>

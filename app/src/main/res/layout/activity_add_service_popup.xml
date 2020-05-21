@@ -44,10 +44,6 @@
             android:hint="대기시간(단위:분)"
             android:padding="8dp" />
     </LinearLayout>
-<<<<<<< HEAD
-=======
-
-
     <LinearLayout
         android:orientation="horizontal"
         android:gravity="center"
@@ -67,5 +63,4 @@
             android:textSize="18sp"
             android:onClick="service_add"/>
     </LinearLayout>
->>>>>>> feature/service_add
 </LinearLayout>

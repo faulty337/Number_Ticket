@@ -31,42 +31,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-<<<<<<< HEAD
-//View dialogView = getLayoutInflater().inflate(R.layout.activity_add_service_popup, null);
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(AddShop.this, R.style.MySaveAlertTheme);
-//        builder.setView(dialogView);
-//        builder.setPositiveButton("추가", new DialogInterface.OnClickListener(){
-//@Override
-//public void onClick(DialogInterface dialog, int id)
-//        {
-//        EditText service_name = (EditText)((AlertDialog)dialog).findViewById(R.id.et_service_name);
-//        EditText service_time = (EditText)((AlertDialog)dialog).findViewById(R.id.et_service_time);
-//        }
-//        });
-//
-//        builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
-//@Override
-//public void onClick(DialogInterface dialog, int id)
-//        {
-//        dialog.dismiss();
-//        }
-//        });
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.show();
-
-public class AddShop extends AppCompatActivity {
-=======
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AddShop extends AppCompatActivity implements AddServicePopup.OnCompleteListenner{
->>>>>>> feature/service_add
 
     private static final String TAG = "AddShopActivity";
     private FirebaseAuth mAuth;
-    private String name, type, address, telnumber, code, owner;
-    private String tel_number;
+    private String name, type, address, tel_number, code, owner;
     private Boolean code_use = false;
     private FirebaseFirestore db;
     private FirebaseUser user;
@@ -77,7 +49,6 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
 
     @Override
     public void onInputedData(String service, String time) {
-        Log.d(TAG, service + "dddd" + time);
         serviceList.add(new ServiceInfo(service, time));
     }
 
