@@ -1,12 +1,15 @@
 package com.example.number_ticket.manager;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
@@ -14,34 +17,48 @@ import android.widget.EditText;
 import android.widget.Switch;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.number_ticket.R;
+import com.example.number_ticket.customer.CsRsvActivity;
+import com.example.number_ticket.data.ServiceInfo;
 import com.example.number_ticket.data.ShopData;
+import com.example.number_ticket.popup.AddServicePopup;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class AddShop extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class AddShop extends AppCompatActivity implements AddServicePopup.OnCompleteListenner{
 
     private static final String TAG = "AddShopActivity";
     private FirebaseAuth mAuth;
-    private String name;
-    private String type;
-    private String address;
+    private String name, type, address, telnumber, code, owner;
     private String tel_number;
     private Boolean code_use = false;
-    private String code;
-    private String owner;
+    private FirebaseFirestore db;
+    private FirebaseUser user;
+    private Button serviceadd;
+    private ArrayList<ServiceInfo> serviceList = new ArrayList<ServiceInfo>();
     private LinearLayout code_layout;
     private LinearLayout service_add_layout;
 
+    @Override
+    public void onInputedData(String service, String time) {
+        Log.d(TAG, service + "dddd" + time);
+        serviceList.add(new ServiceInfo(service, time));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_shop);
-
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        db = FirebaseFirestore.getInstance();
         ((EditText)findViewById(R.id.et_code)).setClickable(false);
         ((EditText)findViewById(R.id.et_code)).setFocusable(false);
         ((EditText)findViewById(R.id.et_code)).setFocusableInTouchMode(false);
@@ -50,6 +67,7 @@ public class AddShop extends AppCompatActivity {
         code_layout = findViewById(R.id.code_input);
         service_add_layout = findViewById(R.id.service_input);
 
+        serviceadd = findViewById(R.id.bt_add_sevicetime);
         Switch sw = ((Switch)findViewById(R.id.code_use));
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -66,7 +84,12 @@ public class AddShop extends AppCompatActivity {
                 }
             }
         });
-
+        serviceadd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                serviceadd();
+            }
+        });
         Switch service_expand = ((Switch)findViewById(R.id.sevice_expanded_switch));
         service_expand.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -79,10 +102,6 @@ public class AddShop extends AppCompatActivity {
 
             }
         });//false면 코드입력 불가능하게 하는 코드
-
-
-        Intent intent = getIntent();
-
         findViewById(R.id.bt_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +119,15 @@ public class AddShop extends AppCompatActivity {
 
     }
 
+
+    public void serviceadd(){
+        DialogFragment Fragment = new AddServicePopup();
+        Fragment.show(getSupportFragmentManager(), "dialog");
+
+    }
+
+
+
     private void MyStartActivity(Class go_to){
         Intent intent = new Intent(AddShop.this, go_to);
         startActivity(intent);
@@ -116,12 +144,13 @@ public class AddShop extends AppCompatActivity {
     }
 
     private void shopUpdate() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         owner = user.getEmail();
         Log.d(TAG, owner);
         ShopData shopData = new ShopData(name, tel_number, type, address, code, code_use, owner);
         db.collection("shop").document(name).set(shopData);
+        for(ServiceInfo service : serviceList){
+            db.collection("shop").document(name).collection("service").document(service.getService()).set(service);
+        }
     }
 
 }
