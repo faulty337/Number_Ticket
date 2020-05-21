@@ -25,6 +25,28 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+//View dialogView = getLayoutInflater().inflate(R.layout.activity_code_check, null);
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(CsRsvActivity.this, R.style.MySaveAlertTheme);
+//        builder.setView(dialogView);
+//        builder.setPositiveButton("입력", new DialogInterface.OnClickListener(){
+//@Override
+//public void onClick(DialogInterface dialog, int id)
+//        {
+//        EditText code = (EditText)((AlertDialog)dialog).findViewById(R.id.et_codecheck);
+//        }
+//        });
+//
+//        builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
+//@Override
+//public void onClick(DialogInterface dialog, int id)
+//        {
+//        dialog.dismiss();
+//        }
+//        });
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.show();
+
 public class CsRsvActivity extends AppCompatActivity
 {
     private static final String TAG = "CsRsvActivity";
@@ -55,15 +77,34 @@ public class CsRsvActivity extends AppCompatActivity
         giveticket.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Log.d(TAG, shopuse.toString());
-                if(shopuse){
-                    intent.putExtra("name", shopname);
-                    shopData.setWaitnumber(wait_number);
-                    shopUpdate();
-                    ticketNumber_get();
-                }else{
-                    dialog_set();
-                }
+                View dialogView = getLayoutInflater().inflate(R.layout.activity_cs_rsv_check, null);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(CsRsvActivity.this, R.style.MySaveAlertTheme);
+                builder.setView(dialogView);
+                builder.setPositiveButton("예약", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        Log.d(TAG, shopuse.toString());
+                        if(shopuse){
+                            intent.putExtra("name", shopname);
+                            shopData.setWaitnumber(wait_number);
+                            shopUpdate();
+                            ticketNumber_get();
+                        }else{
+                            dialog_set();
+                        }
+                    }
+                });
+                builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
 
@@ -145,17 +186,19 @@ public class CsRsvActivity extends AppCompatActivity
         db.collection("shop").document(shopname).set(shopData);
     }
     private void dialog_set(){
-        AlertDialog.Builder popup = new AlertDialog.Builder(CsRsvActivity.this);
-        popup.setTitle("알림");
-        popup.setMessage("현재 대기표를 받지 않습니다. 전화로 예약해주세요");
+        View dialogView = getLayoutInflater().inflate(R.layout.activity_cant_rsv, null);
 
-        popup.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(CsRsvActivity.this, R.style.MySaveAlertTheme);
+        builder.setView(dialogView);
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener(){
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-
+            public void onClick(DialogInterface dialog, int id)
+            {
+                dialog.dismiss();
             }
         });
-        popup.show();
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
 }

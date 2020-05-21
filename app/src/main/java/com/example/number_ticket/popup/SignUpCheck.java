@@ -1,9 +1,9 @@
 package com.example.number_ticket.popup;
 
-        import android.app.Activity;
-        import android.os.Bundle;
+import android.app.Activity;
+import android.os.Bundle;
 
-        import com.example.number_ticket.R;
+import com.example.number_ticket.R;
 
 public class SignUpCheck extends Activity {
     @Override

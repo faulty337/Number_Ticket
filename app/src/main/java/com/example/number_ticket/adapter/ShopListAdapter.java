@@ -21,6 +21,28 @@ import com.example.number_ticket.manager.ShopList;
 
 import java.util.ArrayList;
 
+//View dialogView = getLayoutInflater().inflate(R.layout.activity_delete_shop_check, null);
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(ShopListAdapter.this, R.style.MyCancelAlertTheme);
+//        builder.setView(dialogView);
+//        builder.setPositiveButton("삭제", new DialogInterface.OnClickListener(){
+//@Override
+//public void onClick(DialogInterface dialog, int id)
+//        {
+//
+//        }
+//        });
+//
+//        builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
+//@Override
+//public void onClick(DialogInterface dialog, int id)
+//        {
+//        dialog.dismiss();
+//        }
+//        });
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.show();
+
 public class ShopListAdapter extends BaseAdapter {
 
     Context mContext = null;

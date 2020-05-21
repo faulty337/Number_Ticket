@@ -1,5 +1,6 @@
 package com.example.number_ticket;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.number_ticket.data.UserInfo;
@@ -37,6 +39,7 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         email = new String();
 
+
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -44,7 +47,27 @@ public class SignUpActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.bt_goto_sign_up:
-                    signup();
+                    View dialogView = getLayoutInflater().inflate(R.layout.activity_sign_up_check, null);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this, R.style.MySaveAlertTheme);
+                    builder.setView(dialogView);
+                    builder.setPositiveButton("확인", new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int id)
+                        {
+                            signup();
+                        }
+                    });
+
+                    builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int id)
+                        {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
                     break;
                 case R.id.bt_back:
                     onBackPressed();
@@ -85,7 +108,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
-                                                        openToast("사용자업데이트에 성공하엿습니다.");
+                                                        openToast("회원가입 되었습니다. 입력하신 정보로 로그인해주세요.");
                                                         profileUpdate();
                                                         gotoLogin();
                                                     }

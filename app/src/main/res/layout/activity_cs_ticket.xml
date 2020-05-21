@@ -164,7 +164,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/bt_numcancle"
+                android:id="@+id/bt_numcancel"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"

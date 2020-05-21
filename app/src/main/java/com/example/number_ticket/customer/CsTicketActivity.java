@@ -1,5 +1,6 @@
 package com.example.number_ticket.customer;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.number_ticket.R;
@@ -61,27 +63,48 @@ public class CsTicketActivity extends AppCompatActivity {
         time = findViewById(R.id.time);
         time.setText(start_time);
         waitnumber = findViewById(R.id.cs_waitnumber);
-        Button cancel = findViewById(R.id.bt_numcancle);
+        Button cancel = findViewById(R.id.bt_numcancel);
         cancel.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                db.collection("shop").document(shopName).collection("waitinglist").document(user.getEmail())
-                        .delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Intent intent1 = new Intent(CsTicketActivity.this, CsRsvActivity.class);
-                                intent1.putExtra("name", shopName);
-                                intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent1);
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error deleting document", e);
-                            }
-                        });
+                View dialogView = getLayoutInflater().inflate(R.layout.activity_cs_ticket_cancel_check, null);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(CsTicketActivity.this, R.style.MyCancelAlertTheme);
+                builder.setView(dialogView);
+                builder.setPositiveButton("예", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        db.collection("shop").document(shopName).collection("waitinglist").document(user.getEmail())
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Intent intent1 = new Intent(CsTicketActivity.this, CsRsvActivity.class);
+                                        intent1.putExtra("name", shopName);
+                                        intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent1);
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error deleting document", e);
+                                    }
+                                });
+                    }
+                });
+
+                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
             }
         });
         dataget();

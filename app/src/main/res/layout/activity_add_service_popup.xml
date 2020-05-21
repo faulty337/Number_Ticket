@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="350dp"
-    android:layout_height="wrap_content"
-    android:background="@drawable/pop_up_draw">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:paddingTop="18dp"
@@ -44,25 +43,5 @@
             android:background="@drawable/border"
             android:hint="대기시간(단위:분)"
             android:padding="8dp" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
-
-        <Button
-            android:id="@+id/bt_ok"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/bluebutton"
-            android:gravity="center"
-            android:text="추가"
-            android:textColor="#000000"
-            android:textSize="18sp" />
     </LinearLayout>
 </LinearLayout>

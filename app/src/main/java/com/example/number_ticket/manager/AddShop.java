@@ -1,6 +1,7 @@
 package com.example.number_ticket.manager;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,8 +13,10 @@ import android.widget.LinearLayout;
 
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.number_ticket.R;
@@ -21,6 +24,29 @@ import com.example.number_ticket.data.ShopData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+//View dialogView = getLayoutInflater().inflate(R.layout.activity_add_service_popup, null);
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(AddShop.this, R.style.MySaveAlertTheme);
+//        builder.setView(dialogView);
+//        builder.setPositiveButton("추가", new DialogInterface.OnClickListener(){
+//@Override
+//public void onClick(DialogInterface dialog, int id)
+//        {
+//        EditText service_name = (EditText)((AlertDialog)dialog).findViewById(R.id.et_service_name);
+//        EditText service_time = (EditText)((AlertDialog)dialog).findViewById(R.id.et_service_time);
+//        }
+//        });
+//
+//        builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
+//@Override
+//public void onClick(DialogInterface dialog, int id)
+//        {
+//        dialog.dismiss();
+//        }
+//        });
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.show();
 
 public class AddShop extends AppCompatActivity {
 
@@ -93,7 +119,28 @@ public class AddShop extends AppCompatActivity {
        findViewById(R.id.bt_pv_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addshop();
+                View dialogView = getLayoutInflater().inflate(R.layout.activity_add_shop_check, null);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddShop.this, R.style.MySaveAlertTheme);
+                builder.setView(dialogView);
+                builder.setPositiveButton("저장", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        addshop();
+                        Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });//버튼 클릭 시 firebase에 data저장
         mAuth = FirebaseAuth.getInstance();

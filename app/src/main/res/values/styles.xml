@@ -8,4 +8,33 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MySaveAlertTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="buttonBarNegativeButtonStyle">@style/buttonBarButtonStyle.Negative</item>
+        <item name="buttonBarPositiveButtonStyle">@style/buttonBarButtonStyle.BluePositive</item>
+        <item name="android:windowMinWidthMajor">@dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
+    </style>
+
+    <style name="MyCancelAlertTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="buttonBarNegativeButtonStyle">@style/buttonBarButtonStyle.Negative</item>
+        <item name="buttonBarPositiveButtonStyle">@style/buttonBarButtonStyle.RedPositive</item>
+        <item name="android:windowMinWidthMajor">@dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
+    </style>
+
+    <style name="buttonBarButtonStyle" parent="Widget.AppCompat.Button.Borderless.Colored">
+    </style>
+
+    <style name="buttonBarButtonStyle.Negative">
+        <item name="android:textColor">@color/gray1</item>
+    </style>
+
+    <style name="buttonBarButtonStyle.BluePositive">
+        <item name="android:textColor">@color/blue1</item>
+    </style>
+
+    <style name="buttonBarButtonStyle.RedPositive">
+        <item name="android:textColor">@color/red1</item>
+    </style>
+
 </resources>
