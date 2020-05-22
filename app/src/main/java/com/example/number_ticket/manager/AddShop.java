@@ -38,7 +38,7 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
 
     private static final String TAG = "AddShopActivity";
     private FirebaseAuth mAuth;
-    private String name, type, address, tel_number, code, owner;
+    private String name, type, address, tel_number, code, owner, waitingtime, space;
     private Boolean code_use = false;
     private FirebaseFirestore db;
     private FirebaseUser user;
@@ -157,6 +157,8 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
         address = ((EditText)findViewById(R.id.et_addr)).getText().toString();
         tel_number = ((EditText)findViewById(R.id.et_spNumber)).getText().toString();
         code = ((EditText)findViewById(R.id.et_code)).getText().toString();
+        waitingtime = ((EditText)findViewById(R.id.et_service_time)).getText().toString();
+        space = ((EditText)findViewById(R.id.et_service_number)).getText().toString();
         shopUpdate();
         MyStartActivity(ShopList.class);
     }
@@ -165,6 +167,8 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
         owner = user.getEmail();
         Log.d(TAG, owner);
         ShopData shopData = new ShopData(name, tel_number, type, address, code, code_use, owner);
+        shopData.setWaitingtime(waitingtime);
+        shopData.setSpace_count(Integer.parseInt(space));
         db.collection("shop").document(name).set(shopData);
         for(ServiceInfo service : serviceList){
             db.collection("shop").document(name).collection("service").document(service.getService()).set(service);
