@@ -12,10 +12,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.number_ticket.MainActivity;
 import com.example.number_ticket.R;
 import com.example.number_ticket.data.ShopData;
+import com.example.number_ticket.popup.AddServicePopup;
+import com.example.number_ticket.popup.CodeCheck;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,10 +50,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 //        AlertDialog alertDialog = builder.create();
 //        alertDialog.show();
 
-public class CsRsvActivity extends AppCompatActivity
+public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnCompleteListenner
 {
     private static final String TAG = "CsRsvActivity";
     private String shopname;
+    private String code, code_check = "";
     private Boolean shopuse;
     private int wait_number;
     private FirebaseFirestore db;
@@ -77,42 +81,38 @@ public class CsRsvActivity extends AppCompatActivity
         giveticket.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                View dialogView = getLayoutInflater().inflate(R.layout.activity_cs_rsv_check, null);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(CsRsvActivity.this, R.style.MySaveAlertTheme);
-                builder.setView(dialogView);
-                builder.setPositiveButton("예약", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int id)
-                    {
-                        Log.d(TAG, shopuse.toString());
-                        if(shopuse){
-                            intent.putExtra("name", shopname);
-                            shopData.setWaitnumber(wait_number);
-                            shopUpdate();
-                            ticketNumber_get();
-                        }else{
-                            dialog_set();
-                        }
-                    }
-                });
-                builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int id)
-                    {
-                        dialog.dismiss();
-                    }
-                });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
+                if(shopuse){
+                    rsv_check();
+                }else{
+                    dialog_set();
+                }
             }
         });
 
     }
+
+    @Override
+    public void onInputedData(String code) {
+        this.code = code;
+        Log.d(TAG, code + "입력 코드");
+        Log.d(TAG, code_check + "코드 체크");
+        if(code.equals(code_check)){
+            gotoTicket();
+        }else{
+            code_false_action();
+        }
+    }
+
+    private void gotoTicket(){
+        intent.putExtra("name", shopname);
+        shopData.setWaitnumber(wait_number);
+        shopUpdate();
+        ticketNumber_get();
+    }
+
     private void ticketNumber_get(){
         Query docRef = db.collection("shop").document(shopname).collection("waitinglist").orderBy("waiting_number").limit(1);
         if(docRef != null){
-            Log.d(TAG, "존재함");
             docRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -136,7 +136,7 @@ public class CsRsvActivity extends AppCompatActivity
                 }
             });
         }else{
-
+            Log.d(TAG, "이게 비었다고??");
         }
     }
     private void readshop(final String shopName){
@@ -151,6 +151,7 @@ public class CsRsvActivity extends AppCompatActivity
                                 shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
                                 shopData.setWaitnumber(Integer.parseInt(document.get("waitnumber").toString()));
                                 shopData.setUse(Boolean.valueOf(document.get("use").toString()));
+                                code_check = shopData.getCode();
                                 shopuse = shopData.getUse();
                                 dataset(shopData);
                             }
@@ -200,5 +201,52 @@ public class CsRsvActivity extends AppCompatActivity
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+    private void rsv_check(){
+        View dialogView = getLayoutInflater().inflate(R.layout.activity_cs_rsv_check, null);
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(CsRsvActivity.this, R.style.MySaveAlertTheme);
+        builder.setView(dialogView);
+        builder.setPositiveButton("예약", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                code_check();
+            }
+        });
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void code_check(){
+        if(shopData.getCode_use()){
+            DialogFragment Fragment = new CodeCheck();
+            Fragment.show(getSupportFragmentManager(), "dialog");
+
+        }else{
+            gotoTicket();
+        }
+    }
+    private void code_false_action(){
+        View dialogView = getLayoutInflater().inflate(R.layout.activity_code_false, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(CsRsvActivity.this, R.style.MySaveAlertTheme);
+        builder.setView(dialogView);
+
+        builder.setNegativeButton("확인", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 }

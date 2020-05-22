@@ -136,14 +136,12 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
             }
         });//버튼 클릭 시 firebase에 data저장
         mAuth = FirebaseAuth.getInstance();
-
     }
 
 
     public void serviceadd(){
         DialogFragment Fragment = new AddServicePopup();
         Fragment.show(getSupportFragmentManager(), "dialog");
-
     }
 
 

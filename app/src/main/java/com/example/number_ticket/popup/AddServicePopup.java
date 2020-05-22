@@ -64,26 +64,4 @@ public class AddServicePopup extends DialogFragment {
         });
         return builder.create();
     }
-    //    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        Intent intent = getIntent();
-//        shopname = intent.getExtras().getString("name");
-//        setContentView(R.layout.activity_add_service_popup);
-//        db = FirebaseFirestore.getInstance();
-//        bt_ok = findViewById(R.id.bt_ok);
-//        service_type = findViewById(R.id.et_service_name);
-//        service_time = findViewById(R.id.et_service_time);
-//    }
-//
-//    public void service_add(){
-//        Intent intent = new Intent(this, AddShop.class);
-//        intent.putExtra("service", service_type.getText().toString());
-//        intent.putExtra()
-//
-//       }
-//
-//    public void cancel(){
-//        finish();
-//    }
 }
