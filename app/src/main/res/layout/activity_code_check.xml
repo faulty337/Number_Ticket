@@ -32,6 +32,26 @@
             android:layout_marginRight="10dp"
             android:padding="10dp"
             android:hint="코드를 입력해주세요." />
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <Button
+            android:id="@+id/bt_ok"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/bluebutton"
+            android:gravity="center"
+            android:text="확인"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:onClick="service_add"/>
     </LinearLayout>
 
 </LinearLayout>
