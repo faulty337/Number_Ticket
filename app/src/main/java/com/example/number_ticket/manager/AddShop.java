@@ -144,8 +144,6 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
         Fragment.show(getSupportFragmentManager(), "dialog");
     }
 
-
-
     private void MyStartActivity(Class go_to){
         Intent intent = new Intent(AddShop.this, go_to);
         startActivity(intent);

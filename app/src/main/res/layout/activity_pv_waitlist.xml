@@ -66,11 +66,18 @@
             android:textStyle="bold"
             android:textSize="18sp"
             android:background="@drawable/downborder" />
-        <ListView
-            android:id="@+id/pv_wait_listcontent"
-            android:layout_width="match_parent"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:stackFromBottom="true" />
+            android:id="@+id/swipe_layout">
+            <ListView
+                android:id="@+id/pv_wait_listcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
     </LinearLayout>
 

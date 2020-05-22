@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.number_ticket.R;
 import com.example.number_ticket.adapter.WaitListAdapter;
@@ -22,6 +23,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PvWaitlistActivity extends Activity {
     private static final String TAG = "PvWaitlistActivity";
@@ -37,6 +39,14 @@ public class PvWaitlistActivity extends Activity {
         db = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
         shopname = intent.getExtras().getString("name");
+        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                InitializeShopData();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         this.InitializeShopData();
 
         ListView listView = (ListView)findViewById(R.id.pv_wait_listcontent);
@@ -47,7 +57,9 @@ public class PvWaitlistActivity extends Activity {
 
     }
 
+
     private void InitializeShopData() {
+        waitlist.clear();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db.collection("shop").document(shopname).collection("waitinglist")
                 .get()
@@ -61,6 +73,7 @@ public class PvWaitlistActivity extends Activity {
                                 waitingInfo.setName(document.get("name").toString());
                                 waitlist.add(waitingInfo);
                             }
+                            Collections.reverse(waitlist);
                             waitListAdapter.notifyDataSetChanged();
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
