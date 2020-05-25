@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -23,7 +24,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -141,23 +145,16 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
     }
     private void readshop(final String shopName){
         db.collection("shop")
-                .whereEqualTo("name", shopName)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .document(shopName)
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
-                                shopData.setWaitnumber(Integer.parseInt(document.get("waitnumber").toString()));
-                                shopData.setUse(Boolean.valueOf(document.get("use").toString()));
-                                code_check = shopData.getCode();
-                                shopuse = shopData.getUse();
-                                dataset(shopData);
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
+                    public void onEvent(@Nullable DocumentSnapshot document, @Nullable FirebaseFirestoreException e) {
+                        shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
+                        shopData.setWaitnumber(Integer.parseInt(document.get("waitnumber").toString()));
+                        shopData.setUse(Boolean.valueOf(document.get("use").toString()));
+                        code_check = shopData.getCode();
+                        shopuse = shopData.getUse();
+                        dataset(shopData);
                     }
                 });
     }

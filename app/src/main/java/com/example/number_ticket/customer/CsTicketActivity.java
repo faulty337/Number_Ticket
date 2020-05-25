@@ -2,6 +2,9 @@ package com.example.number_ticket.customer;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,7 +26,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
@@ -58,7 +64,7 @@ public class CsTicketActivity extends AppCompatActivity {
         nameset(ticket_number);
         ticket_num = findViewById(R.id.ticket_num);
         ticket_num.setText(ticket_number+"");
-        shopname = findViewById(R.id.ticket_num);
+        shopname = findViewById(R.id.pv_info_sname);
         shopname.setText(shopName);
         time = findViewById(R.id.time);
         time.setText(start_time);
@@ -111,7 +117,6 @@ public class CsTicketActivity extends AppCompatActivity {
 
     }
 
-
     private String timeset() {
         long now = System.currentTimeMillis();
         Date date = new Date(now);
@@ -121,22 +126,11 @@ public class CsTicketActivity extends AppCompatActivity {
     }
 
     private void dataget(){
-        DocumentReference docRef = db.collection("shop").document(shopName);
-
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("shop").document(shopName).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        wait_number = Integer.parseInt(document.getData().get("waitnumber").toString());
-
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
+            public void onEvent(@Nullable DocumentSnapshot document, @Nullable FirebaseFirestoreException e) {
+                wait_number = Integer.parseInt(document.getData().get("waitnumber").toString());
+                waitnumber_count();
             }
         });
     }
@@ -178,6 +172,20 @@ public class CsTicketActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+    private void Alarmset(){
+        db.collection("shop").document(shopName).collection("waiting").document(user.getEmail())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot document, @Nullable FirebaseFirestoreException e) {
+                        if(document.get("alarmset").toString() == "true"){
+                            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                            Ringtone ringtone = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                            ringtone.play();
+                        }
+                    }
+                });
+
     }
 
 }
