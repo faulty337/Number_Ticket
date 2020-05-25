@@ -2,6 +2,7 @@ package com.example.number_ticket.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,13 @@ public class SearchAdapter extends BaseAdapter {
         SGroup.setText(sample.get(position).getType());
         TelNumber.setText(sample.get(position).getTel_number());
         Saddr.setText(sample.get(position).getAddress());
+        TelNumber.setOnClickListener(new TextView.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+sample.get(position).getTel_number()));
+                mContext.startActivity(intent);
+            }
+        });
         SRes.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
                 String shopName = sample.get(position).getName();
@@ -64,8 +72,6 @@ public class SearchAdapter extends BaseAdapter {
                 mContext.startActivity(intent);
             }
         });
-
-
         return view;
     }
 }
