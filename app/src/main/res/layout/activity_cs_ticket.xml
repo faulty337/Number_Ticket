@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:text="25"
+            android:text=""
             android:textColor="#000000"
             android:textSize="70sp"
             android:textStyle="bold" />
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="김밥천국 00점"
+            android:text=""
             android:textColor="#000000"
             android:textSize="20sp"/>
 
@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="발급시간: 2020년 00월 00일 00시 00분 00초"
+            android:text=""
             android:textColor="#000000"
             android:textSize="20sp"/>
 
@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
-                    android:text="00명"
+                    android:text=""
                     android:textColor="#000000"
                     android:textSize="35sp"
                     android:textStyle="bold" />
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
-                    android:text="00분"
+                    android:text=""
                     android:textColor="#000000"
                     android:textSize="35sp"
                     android:textStyle="bold" />

@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:text="김밥천국 00점"
+            android:text=""
             android:textColor="#000000"
             android:textSize="40sp"
             android:textStyle="bold" />
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:text="--명"
+            android:text=""
             android:textColor="#000000"
             android:textStyle="bold"
             android:textSize="35sp"/>
@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:text="--분"
+            android:text=""
             android:textColor="#000000"
             android:textStyle="bold"
             android:textSize="35sp"/>
