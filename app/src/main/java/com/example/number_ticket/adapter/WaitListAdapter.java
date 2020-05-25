@@ -47,7 +47,7 @@ public class WaitListAdapter extends BaseAdapter {
     public Object getItem(int position) { return sample.get(position); }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View view = mLayoutInflater.inflate(R.layout.activity_pv_waitlist_content, null);
         TextView number = (TextView)view.findViewById(R.id.cs_number);
         TextView name = (TextView)view.findViewById(R.id.cs_name);
@@ -58,6 +58,7 @@ public class WaitListAdapter extends BaseAdapter {
         onoff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                db.collection("shop").document(sample.get(position).getShopname()).update("onof", true);
                 onoff.setImageResource(R.drawable.onbt);
                 waittime.setText("이용중");
                 onoff.setEnabled(false);

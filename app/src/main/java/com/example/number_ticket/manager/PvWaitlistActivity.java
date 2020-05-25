@@ -68,7 +68,7 @@ public class PvWaitlistActivity extends Activity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                WaitingInfo waitingInfo = new WaitingInfo(Integer.parseInt(document.get("ticket_number").toString()), document.get("time").toString(), document.get("waitingtime").toString(), Integer.parseInt(document.get("waiting_number").toString()));
+                                WaitingInfo waitingInfo = new WaitingInfo(Integer.parseInt(document.get("ticket_number").toString()), document.get("time").toString(), document.get("waitingtime").toString(), Integer.parseInt(document.get("waiting_number").toString()), document.get("shopname").toString());
                                 waitingInfo.setEmail(document.get("email").toString());
                                 waitingInfo.setName(document.get("name").toString());
                                 waitlist.add(waitingInfo);

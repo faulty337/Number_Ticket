@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.number_ticket.customer.CsRsvActivity;
 import com.example.number_ticket.R;
 import com.example.number_ticket.data.ShopData;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 

@@ -6,13 +6,21 @@ public class WaitingInfo {
     private String waitingtime;
     private String email;
     private String name;
+    private String shopname;
+    private Boolean onoff;
 
-    public WaitingInfo(int ticket_number, String time, String waitingtime, int waiting_number) {
+    public WaitingInfo(int ticket_number, String time, String waitingtime, int waiting_number, String shopname) {
         super();
         this.ticket_number = ticket_number;
         this.time = time;
         this.waitingtime = waitingtime;
         this.waiting_number = waiting_number;
+        this.shopname = shopname;
+        this.onoff = false;
+    }
+
+    public String getShopname() {
+        return shopname;
     }
 
     public String getEmail() {
@@ -39,6 +47,14 @@ public class WaitingInfo {
         return name;
     }
 
+    public Boolean getOnoff() {
+        return onoff;
+    }
+
+    public void setShopname(String shopname) {
+        this.shopname = shopname;
+    }
+
     public void setTicket_number(int present_number) {
         this.ticket_number = present_number;
     }
@@ -61,6 +77,10 @@ public class WaitingInfo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setOnoff(Boolean onoff) {
+        this.onoff = onoff;
     }
 }
 

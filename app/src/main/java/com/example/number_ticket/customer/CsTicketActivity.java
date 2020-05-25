@@ -144,7 +144,7 @@ public class CsTicketActivity extends AppCompatActivity {
     private void waitinglistset(int ticket_n) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         customer = user.getEmail();
-        waitingData = new WaitingInfo(ticket_n, start_time, "aa", wait_number);
+        waitingData = new WaitingInfo(ticket_n, start_time, "aa", wait_number, shopName);
         waitingData.setEmail(user.getEmail());
         waitingData.setName(username);
         db.collection("shop").document(shopName).collection("waitinglist").document(customer).set(waitingData);
