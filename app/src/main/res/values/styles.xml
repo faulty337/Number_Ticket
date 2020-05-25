@@ -27,13 +27,16 @@
 
     <style name="buttonBarButtonStyle.Negative">
         <item name="android:textColor">@color/gray1</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="buttonBarButtonStyle.BluePositive">
         <item name="android:textColor">@color/blue1</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="buttonBarButtonStyle.RedPositive">
         <item name="android:textColor">@color/red1</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>
