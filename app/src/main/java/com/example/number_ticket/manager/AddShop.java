@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
     private ArrayList<ServiceInfo> serviceList = new ArrayList<ServiceInfo>();
     private LinearLayout code_layout;
     private LinearLayout service_add_layout;
+    private ListView service_list;
 
     @Override
     public void onInputedData(String service, String time) {
@@ -65,6 +67,7 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
         //switch버튼 초기값을 fasle로 설정
         code_layout = findViewById(R.id.code_input);
         service_add_layout = findViewById(R.id.service_input);
+        service_list = findViewById(R.id.service_listview);
 
         serviceadd = findViewById(R.id.bt_add_sevicetime);
         Switch sw = ((Switch)findViewById(R.id.code_use));
@@ -95,8 +98,10 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     service_add_layout.setVisibility(View.VISIBLE);
+                    service_list.setVisibility(View.VISIBLE);
                 }else {
                     service_add_layout.setVisibility(View.INVISIBLE);
+                    service_list.setVisibility(View.INVISIBLE);
                 }
 
             }

@@ -114,16 +114,6 @@
                         android:hint="가게 분류를 입력해주세요 ex)분식, 양식"
                         android:padding="7dp" />
 
-                    <TextView
-                        android:layout_width="340dp"
-                        android:layout_height="159dp"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="20dp"
-                        android:gravity="center"
-                        android:text="사용자가 직접 가게로 와서 번호표를 받게 하고 싶으시면 코드사용 여부를 체크해주세요. 코드는 제공자가 직접 입력해야 합니다. 코드를 사용하지 않으시려면 체크해제 후 아무것도 입력하지 않으셔도 됩니다."
-                        android:textColor="#000000"
-                        android:textSize="20sp" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -205,7 +195,18 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:padding="7dp" />
+
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="340dp"
+                    android:layout_height="159dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:text="사용자가 직접 가게로 와서 번호표를 받게 하고 싶으시면 코드사용 여부를 체크해주세요. 코드는 제공자가 직접 입력해야 합니다. 코드를 사용하지 않으시려면 체크해제 후 아무것도 입력하지 않으셔도 됩니다."
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:id="@+id/code_input"
@@ -344,6 +345,12 @@
                         android:textSize="18sp"
                         android:textColor="#000000"/>
                 </LinearLayout>
+
+                <ListView
+                    android:id="@+id/service_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

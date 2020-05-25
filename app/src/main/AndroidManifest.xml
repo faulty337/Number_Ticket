@@ -26,7 +26,6 @@
         <activity android:name=".popup.DeleteShopCheck" />
         <activity android:name=".popup.CantRsv" />
         <activity android:name=".popup.CodeCheck" />
-        <activity android:name=".manager.AddShop2" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
