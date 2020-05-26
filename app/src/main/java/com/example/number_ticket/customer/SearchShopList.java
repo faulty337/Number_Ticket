@@ -1,6 +1,7 @@
 package com.example.number_ticket.customer;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -20,20 +21,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class SearchShopList extends AppCompatActivity {
     private static final String TAG = "SignUpActivity";
     private FirebaseFirestore db;
-    private DatabaseReference mReference;
-    private ChildEventListener mChild;
-    private ListView listView;
     private SearchAdapter searchAdapter;
     private SearchView searchView;
 
@@ -118,20 +120,15 @@ public class SearchShopList extends AppCompatActivity {
         initDatabase();
     }
     private void initDatabase() {
-        db.collection("shop")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        final CollectionReference shoplistRf = db.collection("shop");
+        shoplistRf
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                shopDataList.add(new ShopData(document.getData().get("name").toString(), document.getData().get("tel_number").toString(), document.getData().get("type").toString(), document.getData().get("address").toString(),document.getData().get("code").toString(),Boolean.valueOf(document.getData().get("code_use").toString()),document.getData().get("owner").toString()));
-
-                            }
-                            searchAdapter.notifyDataSetChanged();
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            shopDataList.add(new ShopData(document.getData().get("name").toString(), document.getData().get("tel_number").toString(), document.getData().get("type").toString(), document.getData().get("address").toString(),document.getData().get("code").toString(),Boolean.valueOf(document.getData().get("code_use").toString()),document.getData().get("owner").toString()));
                         }
+                        searchAdapter.notifyDataSetChanged();
                     }
                 });
     }

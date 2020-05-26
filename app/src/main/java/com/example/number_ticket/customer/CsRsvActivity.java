@@ -161,16 +161,12 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
     private void waitnumber_count(){
         db.collection("shop")
                 .document(shopname)
-                .collection("waitinglist")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .collection("waitinglist").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    wait_number = task.getResult().size();
-                    pv_waitnumber.setText(wait_number + " 명");
-                    Log.d(TAG, wait_number+"Aaa");
-                }
+            public void onEvent(@Nullable QuerySnapshot query, @Nullable FirebaseFirestoreException e) {
+                wait_number = query.size();
+                pv_waitnumber.setText(wait_number + " 명");
+                Log.d(TAG, wait_number+"Aaa");
             }
         });
     }

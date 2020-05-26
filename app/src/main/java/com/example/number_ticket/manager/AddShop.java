@@ -24,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.number_ticket.R;
+import com.example.number_ticket.adapter.SearchAdapter;
+import com.example.number_ticket.adapter.ServiceAdapter;
 import com.example.number_ticket.customer.CsRsvActivity;
 import com.example.number_ticket.data.ServiceInfo;
 import com.example.number_ticket.data.ShopData;
@@ -48,10 +50,12 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
     private LinearLayout code_layout;
     private LinearLayout service_add_layout;
     private ListView service_list;
+    private ServiceAdapter serviceAdapter;
 
     @Override
     public void onInputedData(String service, String time) {
         serviceList.add(new ServiceInfo(service, time));
+        serviceAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -141,6 +145,10 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
             }
         });//버튼 클릭 시 firebase에 data저장
         mAuth = FirebaseAuth.getInstance();
+        ListView listView = (ListView)findViewById(R.id.service_listview);
+        serviceAdapter = new ServiceAdapter(this, serviceList);
+
+        listView.setAdapter(serviceAdapter);
     }
 
 
@@ -171,7 +179,9 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
         Log.d(TAG, owner);
         ShopData shopData = new ShopData(name, tel_number, type, address, code, code_use, owner);
         shopData.setWaitingtime(waitingtime);
-        shopData.setSpace_count(Integer.parseInt(space));
+        if(!space.equals("")){
+            shopData.setSpace_count(Integer.parseInt(space));
+        }
         db.collection("shop").document(name).set(shopData);
         for(ServiceInfo service : serviceList){
             db.collection("shop").document(name).collection("service").document(service.getService()).set(service);

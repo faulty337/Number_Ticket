@@ -147,29 +147,22 @@ public class CsTicketActivity extends AppCompatActivity {
         db.collection("shop")
                 .document(shopName)
                 .collection("waitinglist")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            wait_number = task.getResult().size();
-                            waitnumber.setText(wait_number + " 명");
-                        }
+                    public void onEvent(@Nullable QuerySnapshot task, @Nullable FirebaseFirestoreException e) {
+                        wait_number = task.size();
+                        waitnumber.setText(wait_number + " 명");
                     }
                 });
     }
     private void nameset(final int ticket_number){
         db.collection("users").document(user.getEmail())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        DocumentSnapshot document = task.getResult();
-                        if(document.exists()){
-                            username = document.getData().get("name").toString();
-                            waitinglistset(ticket_number);
-                            waitnumber_count();
-                        }
+                    public void onEvent(@Nullable DocumentSnapshot document, @Nullable FirebaseFirestoreException e) {
+                        username = document.getData().get("name").toString();
+                        waitinglistset(ticket_number);
+                        waitnumber_count();
                     }
                 });
     }
