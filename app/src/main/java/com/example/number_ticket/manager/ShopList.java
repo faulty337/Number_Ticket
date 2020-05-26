@@ -1,6 +1,7 @@
 package com.example.number_ticket.manager;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -17,7 +19,9 @@ import com.example.number_ticket.R;
 import com.example.number_ticket.SelectUserActivity;
 import com.example.number_ticket.adapter.SearchAdapter;
 import com.example.number_ticket.adapter.ShopListAdapter;
+import com.example.number_ticket.customer.CsRsvActivity;
 import com.example.number_ticket.data.ShopData;
+import com.example.number_ticket.popup.DeleteShopCheck;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,26 +40,22 @@ public class ShopList extends AppCompatActivity {
     ArrayList<ShopData> shopDataList = new ArrayList<ShopData>();;
     private ShopListAdapter shopListAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_list);
         db = FirebaseFirestore.getInstance();
-
+        Button delshop = findViewById(R.id.pv_info_del);
         this.InitializeShopData();
 
         ListView listView = (ListView)findViewById(R.id.pv_info_listcontent);
-        shopListAdapter = new ShopListAdapter(this,shopDataList);
+        shopListAdapter = new ShopListAdapter(this,shopDataList,this);
         shopListAdapter.notifyDataSetChanged();
 
         listView.setAdapter(shopListAdapter);
 
-//        listView.setOnItemClickListener(new OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(ShopList.this, "asdf", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+
 
         Intent intent1 = getIntent();//SelectUser -> ShopList
 
@@ -67,8 +67,6 @@ public class ShopList extends AppCompatActivity {
                 MyStartActivity(AddShop.class);
             }
         });//AddShop 이동
-
-
 
     }
 
@@ -98,5 +96,6 @@ public class ShopList extends AppCompatActivity {
         Intent intent = new Intent(ShopList.this, go_to);
         startActivity(intent);
     }
+
 
 }

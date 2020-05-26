@@ -159,6 +159,7 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
 
     private void MyStartActivity(Class go_to){
         Intent intent = new Intent(AddShop.this, go_to);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }//화면전환
 
@@ -167,7 +168,11 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
         type = ((EditText)findViewById(R.id.et_sgroup)).getText().toString();
         address = ((EditText)findViewById(R.id.et_addr)).getText().toString();
         tel_number = ((EditText)findViewById(R.id.et_spNumber)).getText().toString();
-        code = ((EditText)findViewById(R.id.et_code)).getText().toString();
+        if (code_use == true){
+            code = ((EditText)findViewById(R.id.et_code)).getText().toString();
+        }else{
+            code = "사용안함";
+        }
         waitingtime = ((EditText)findViewById(R.id.et_service_time)).getText().toString();
         space = ((EditText)findViewById(R.id.et_service_number)).getText().toString();
         shopUpdate();

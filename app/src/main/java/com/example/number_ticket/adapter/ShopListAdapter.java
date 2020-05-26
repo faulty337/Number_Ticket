@@ -1,7 +1,10 @@
 package com.example.number_ticket.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,47 +15,40 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+
 import com.example.number_ticket.R;
 import com.example.number_ticket.customer.CsRsvActivity;
 import com.example.number_ticket.data.ShopData;
 import com.example.number_ticket.manager.AddShop;
 import com.example.number_ticket.manager.PvActActivity;
 import com.example.number_ticket.manager.ShopList;
+import com.example.number_ticket.popup.AddServicePopup;
+import com.example.number_ticket.popup.DeleteShopCheck;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-//View dialogView = getLayoutInflater().inflate(R.layout.activity_delete_shop_check, null);
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(ShopListAdapter.this, R.style.MyCancelAlertTheme);
-//        builder.setView(dialogView);
-//        builder.setPositiveButton("삭제", new DialogInterface.OnClickListener(){
-//@Override
-//public void onClick(DialogInterface dialog, int id)
-//        {
-//
-//        }
-//        });
-//
-//        builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
-//@Override
-//public void onClick(DialogInterface dialog, int id)
-//        {
-//        dialog.dismiss();
-//        }
-//        });
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.show();
+
 
 public class ShopListAdapter extends BaseAdapter {
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     Context mContext = null;
     LayoutInflater mLayoutInflater = null;
+    Activity activity;
     ArrayList<ShopData> sample;
 
-    public ShopListAdapter(Context context, ArrayList<ShopData> data) {
+    public ShopListAdapter(Context context, ArrayList<ShopData> data, Activity activity) {
         mContext = context;
         sample = data;
         mLayoutInflater = LayoutInflater.from(mContext);
+        this.activity = activity;
     }
 
     @Override
@@ -97,13 +93,82 @@ public class ShopListAdapter extends BaseAdapter {
         });
         SRes2.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
-                String shopName = sample.get(position).getName();
-                Intent intent = new Intent(mContext.getApplicationContext(), AddShop.class);
-                intent.putExtra("name", shopName);
-                mContext.startActivity(intent);
+                dialogset(sample.get(position).getName());
             }
         });
 
         return view;
+    }
+
+
+    private void dialogset(final String shopname){
+//        DialogInterface.OnClickListener confirm = new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                db.collection("shop").document(shopname)
+//                        .delete()
+//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                notifyDataSetChanged();
+//                            }
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Log.d("aaa", "onFailure: youfail");
+//                            }
+//                        });
+//                db.collection("shop").document(shopname).collection("service")
+//            }
+//        };
+//        DialogInterface.OnClickListener cancel = new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int i) {
+//                dialog.dismiss();
+//            }
+//        };
+//        new AlertDialog.Builder(activity, R.style.MyCancelAlertTheme)
+//                .setTitle("삭제하시겠습니까?")
+//                .setPositiveButton("삭제",confirm)
+//                .setNegativeButton("취소", cancel)
+//                .show();
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+
+        View dialogView = inflater.inflate(R.layout.activity_delete_shop_check, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.MyCancelAlertTheme);
+        builder.setView(dialogView);
+        builder.setPositiveButton("삭제", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                db.collection("shop").document(shopname)
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                notifyDataSetChanged();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("aaa", "onFailure: youfail");
+                            }
+                        });
+                db.collection("shop").document(shopname).collection("service");
+            }
+        });
+
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

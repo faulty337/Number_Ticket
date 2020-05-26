@@ -67,6 +67,7 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
     private Intent intent;
     private int ticket_number;
     private ShopData shopData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -172,7 +173,6 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
     }
     private void dataset(ShopData shopData){
         pv_info_sname.setText(shopData.getName());
-
     }
     private void shopUpdate() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
