@@ -8,29 +8,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import com.example.number_ticket.R;
-import com.example.number_ticket.customer.CsRsvActivity;
 import com.example.number_ticket.data.ShopData;
-import com.example.number_ticket.manager.AddShop;
 import com.example.number_ticket.manager.PvActActivity;
+import com.example.number_ticket.manager.EditShop;
 import com.example.number_ticket.manager.ShopList;
-import com.example.number_ticket.popup.AddServicePopup;
-import com.example.number_ticket.popup.DeleteShopCheck;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -86,7 +77,7 @@ public class ShopListAdapter extends BaseAdapter {
         SRes1.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
                 String shopName = sample.get(position).getName();
-                Intent intent = new Intent(mContext.getApplicationContext(), AddShop.class);
+                Intent intent = new Intent(mContext.getApplicationContext(), EditShop.class);
                 intent.putExtra("name", shopName);
                 mContext.startActivity(intent);
             }
@@ -148,6 +139,8 @@ public class ShopListAdapter extends BaseAdapter {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+                                Intent intent = new Intent(mContext, ShopList.class);
+                                mContext.startActivity(intent);
                                 notifyDataSetChanged();
                             }
                         })

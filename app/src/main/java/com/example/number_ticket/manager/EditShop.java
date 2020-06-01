@@ -1,69 +1,72 @@
 package com.example.number_ticket.manager;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.ArrayMap;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Switch;
-import android.widget.Toast;
-
-
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.number_ticket.R;
-import com.example.number_ticket.adapter.SearchAdapter;
 import com.example.number_ticket.adapter.ServiceAdapter;
-import com.example.number_ticket.customer.CsRsvActivity;
 import com.example.number_ticket.data.ServiceInfo;
 import com.example.number_ticket.data.ShopData;
 import com.example.number_ticket.popup.AddServicePopup;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class AddShop extends AppCompatActivity implements AddServicePopup.OnCompleteListenner{
-
-    private static final String TAG = "AddShopActivity";
-    private FirebaseAuth mAuth;
-    private String name, type, address, tel_number, code, owner, waitingtime, space;
-    private Boolean code_use = false;
+public class EditShop extends AppCompatActivity {
+    private static final String TAG = "EditShopActivity";
+    private String shopname;
     private FirebaseFirestore db;
     private FirebaseUser user;
+    private String name, type, address, tel_number, code, owner, waitingtime, space;
+    private Boolean code_use = false;
     private Button serviceadd;
+    private TextView sname;
+    private EditText sgroup;
+    private EditText saddr;
+    private EditText spNumber;
     private ArrayList<ServiceInfo> serviceList = new ArrayList<ServiceInfo>();
+    private ShopData shopData;
     private LinearLayout code_layout;
     private LinearLayout service_add_layout;
     private ListView service_list;
     private ServiceAdapter serviceAdapter;
 
-    @Override
-    public void onInputedData(String service, String time) {
-        serviceList.add(new ServiceInfo(service, time));
-        serviceAdapter.notifyDataSetChanged();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_shop);
+        setContentView(R.layout.activity_edit_shop);
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
+        Intent intent = getIntent();
+        shopname = intent.getExtras().getString("name");
+        sname = findViewById(R.id.tv_sname);
+        sgroup = findViewById(R.id.et_sgroup);
+        saddr = findViewById(R.id.et_addr);
+        spNumber = findViewById(R.id.et_spNumber);
+
+
         ((EditText)findViewById(R.id.et_code)).setClickable(false);
         ((EditText)findViewById(R.id.et_code)).setFocusable(false);
         ((EditText)findViewById(R.id.et_code)).setFocusableInTouchMode(false);
@@ -90,6 +93,7 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
                 }
             }
         });
+
         serviceadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,26 +114,22 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
 
             }
         });//false면 코드입력 불가능하게 하는 코드
-        findViewById(R.id.bt_back).setOnClickListener(new View.OnClickListener() {
+
+        readshop(shopname);
+
+        findViewById(R.id.bt_pv_update).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyStartActivity(ShopList.class);
-            }
-        });//뒤로가기
+                View dialogView = getLayoutInflater().inflate(R.layout.activity_edit_shop_check, null);
 
-       findViewById(R.id.bt_pv_save).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View dialogView = getLayoutInflater().inflate(R.layout.activity_add_shop_check, null);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(AddShop.this, R.style.MySaveAlertTheme);
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditShop.this, R.style.MySaveAlertTheme);
                 builder.setView(dialogView);
-                builder.setPositiveButton("저장", new DialogInterface.OnClickListener(){
+                builder.setPositiveButton("수정", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        addshop();
-                        Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                        editshop(shopname);
+                        Toast.makeText(getApplicationContext(), "수정되었습니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -143,16 +143,30 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             }
-        });//버튼 클릭 시 firebase에 data저장
-        mAuth = FirebaseAuth.getInstance();
-        ListView listView = (ListView)findViewById(R.id.service_listview);
-        serviceAdapter = new ServiceAdapter(this, serviceList);
+        });//edit_shop_check 팝업창
 
-        listView.setAdapter(serviceAdapter);
+
     }
 
-    private  void dataset(){
+    private void readshop(final String shopName){
+        db.collection("shop")
+                .document(shopName)
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot document, @Nullable FirebaseFirestoreException e) {
+                        shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
+                        shopData.setWaitnumber(Integer.parseInt(document.get("waitnumber").toString()));
+                        shopData.setUse(Boolean.valueOf(document.get("use").toString()));
+                        dataset(shopData);
+                    }
+                });
+    }
 
+    private void dataset(ShopData shopData){
+        sname.setText(shopname);
+        sgroup.setText(shopData.getType());
+        saddr.setText(shopData.getAddress());
+        spNumber.setText(shopData.getTel_number());
     }
 
     public void serviceadd(){
@@ -160,14 +174,8 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
         Fragment.show(getSupportFragmentManager(), "dialog");
     }
 
-    private void MyStartActivity(Class go_to){
-        Intent intent = new Intent(AddShop.this, go_to);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }//화면전환
-
-    private void addshop(){
-        name = ((EditText)findViewById(R.id.et_sname)).getText().toString(); //추가하는 부분 코드
+    private void editshop(String shopname) {
+        name = shopname; //추가하는 부분 코드
         type = ((EditText)findViewById(R.id.et_sgroup)).getText().toString();
         address = ((EditText)findViewById(R.id.et_addr)).getText().toString();
         tel_number = ((EditText)findViewById(R.id.et_spNumber)).getText().toString();
@@ -180,6 +188,12 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
         space = ((EditText)findViewById(R.id.et_service_number)).getText().toString();
         shopUpdate();
         MyStartActivity(ShopList.class);
+    }
+
+    private void MyStartActivity(Class go_to) {
+        Intent intent = new Intent(EditShop.this, go_to);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     private void shopUpdate() {
@@ -196,4 +210,15 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
         }
     }
 
+
+
+
+    /*수정 알고리즘
+
+    간단하게 생각하자
+    editshop에 있는 data를 button클릭 시 이름에 맞는 매장 부분에 넣어주면 되는거 아니냐
+    null 값인건 넣지 말고
+    *
+    *
+    * */
 }

@@ -25,6 +25,10 @@ public class SelectUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_user);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+        Intent pvAct = getIntent();
+        Intent shopList = getIntent();
+        Intent pvWait = getIntent();
+
         if(user == null){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);

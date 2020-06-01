@@ -68,6 +68,18 @@ public class ShopList extends AppCompatActivity {
             }
         });//AddShop 이동
 
+        findViewById(R.id.bt_home).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GotoHome();
+            }
+        });
+
+    }
+
+    private void GotoHome() {
+        Intent intent = new Intent(ShopList.this, SelectUserActivity.class);
+        startActivity(intent);
     }
 
     public void InitializeShopData()

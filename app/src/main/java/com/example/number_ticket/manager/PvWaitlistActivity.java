@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.number_ticket.R;
+import com.example.number_ticket.SelectUserActivity;
 import com.example.number_ticket.adapter.WaitListAdapter;
 import com.example.number_ticket.data.WaitingInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -55,6 +57,17 @@ public class PvWaitlistActivity extends Activity {
 
         listView.setAdapter(waitListAdapter);
 
+        findViewById(R.id.bt_home).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GotoHome();
+            }
+        });
+    }
+
+    private void GotoHome() {
+        Intent intent = new Intent(PvWaitlistActivity.this, SelectUserActivity.class);
+        startActivity(intent);
     }
 
 

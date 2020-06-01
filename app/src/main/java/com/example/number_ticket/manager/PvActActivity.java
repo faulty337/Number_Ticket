@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.number_ticket.R;
+import com.example.number_ticket.SelectUserActivity;
 import com.example.number_ticket.data.ShopData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -58,6 +59,13 @@ public class PvActActivity extends Activity {
         shopname = intent.getExtras().getString("name");
 
 
+        findViewById(R.id.bt_home).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GotoHome();
+            }
+        });//홈으로 가는 부분
+
         findViewById(R.id.bt_pv_waitlist).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +76,9 @@ public class PvActActivity extends Activity {
         findViewById(R.id.bt_refresh).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent refresh = getIntent();
+                finish();
+                startActivity(refresh);
                 //새로고침 버튼 클릭시 새로고침하는 코드
             }
         });
@@ -82,12 +93,17 @@ public class PvActActivity extends Activity {
                     modify_code_use(shopuse);
                 }
             }
-        });
+        });//번호표 사용 여부 변경 코드
 
         readshop(shopname);
         waitnumber_count();
         currentNum_count();
     }
+
+    private void GotoHome() {
+        Intent intent = new Intent(PvActActivity.this, SelectUserActivity.class);
+        startActivity(intent);
+    }//홈으로
 
     private void MyStartActivity(Class go_to, String shopname){
         Intent intent = new Intent(PvActActivity.this, go_to);
@@ -139,9 +155,6 @@ public class PvActActivity extends Activity {
     }//현재 대기인원 넣어주기
 
     private void currentNum_count(){
-        //현재 번호라는 개념이 애매하다 해야하나
-        //어떻게 가져올지에 대한 개념이 모호하다
-        //waiting list에서 가장 위에 있는 사람의 어떤 값을 가져와야할지 모르겠어
         Query docRef = db.collection("shop").document(shopname).collection("waitinglist").whereEqualTo("onoff",false).orderBy("ticket_number").limit(1);
         docRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
