@@ -17,11 +17,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.number_ticket.R;
+import com.example.number_ticket.data.ServiceInfo;
 import com.example.number_ticket.data.WaitingInfo;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -29,10 +28,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Document;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 public class CsTicketActivity extends AppCompatActivity {
     private static final String TAG = "CsTicketActivity";
@@ -48,6 +52,7 @@ public class CsTicketActivity extends AppCompatActivity {
     private TextView shopname;
     private TextView time;
     private TextView waitnumber;
+    private Random random;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -55,6 +60,7 @@ public class CsTicketActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cs_ticket);
         final Intent intent = getIntent();
         start_time = timeset();
+        random = new Random();
 
         shopName = intent.getExtras().getString("name");
         final int ticket_number = Integer.parseInt(intent.getExtras().getString("ticket"));
@@ -141,7 +147,12 @@ public class CsTicketActivity extends AppCompatActivity {
         waitingData = new WaitingInfo(ticket_n, start_time, "aa", wait_number, shopName);
         waitingData.setEmail(user.getEmail());
         waitingData.setName(username);
-        db.collection("shop").document(shopName).collection("waitinglist").document(customer).set(waitingData);
+        db.collection("shop").document(shopName).collection("waitinglist").document(customer).set(waitingData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "끼요오오오옷");
+            }
+        });
     }
     private void waitnumber_count(){
         db.collection("shop")
@@ -152,6 +163,7 @@ public class CsTicketActivity extends AppCompatActivity {
                     public void onEvent(@Nullable QuerySnapshot task, @Nullable FirebaseFirestoreException e) {
                         wait_number = task.size();
                         waitnumber.setText(wait_number + " 명");
+                        db.collection("shop").document(shopName).update("waitnumber", wait_number);
                     }
                 });
     }
@@ -166,6 +178,9 @@ public class CsTicketActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
+
     private void Alarmset(){
         db.collection("shop").document(shopName).collection("waiting").document(user.getEmail())
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {

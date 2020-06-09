@@ -2,14 +2,14 @@ package com.example.number_ticket.data;
 
 public class ServiceInfo {
     private String service;
-    private String time;
+    private int time;
 
-    public ServiceInfo(String service, String time){
+    public ServiceInfo(String service, int time){
         this.service = service;
         this.time = time;
     }
 
-    public String getTime() {
+    public int getTime() {
         return time;
     }
 
@@ -17,7 +17,7 @@ public class ServiceInfo {
         return service;
     }
 
-    public void setTime(String time) {
+    public void setTime(int time) {
         this.time = time;
     }
 

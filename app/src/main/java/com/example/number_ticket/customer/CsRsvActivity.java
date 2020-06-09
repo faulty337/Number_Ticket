@@ -57,15 +57,15 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnCompleteListenner
 {
     private static final String TAG = "CsRsvActivity";
-    private String shopname;
+    private String shopname, waitingTime;
     private String code, code_check = "";
     private Boolean shopuse;
     private int wait_number;
     private FirebaseFirestore db;
-    private TextView pv_info_sname;
+    private TextView pv_info_sname, pv_waittime;
     private TextView pv_waitnumber;
     private Intent intent;
-    private int ticket_number;
+    private int ticket_number, waitingtime, waitNumber, space, ATime, customertime;
     private ShopData shopData;
 
     @Override
@@ -79,8 +79,9 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
         shopname = intent1.getExtras().getString("name");
         pv_info_sname = findViewById(R.id.pv_info_sname);
         pv_waitnumber = findViewById(R.id.pv_waitnumber);
+        pv_waittime = findViewById(R.id.pv_waittime);
         db = FirebaseFirestore.getInstance();
-
+        waitingtimeSet();
         readshop(shopname);
         waitnumber_count();
         giveticket.setOnClickListener(new Button.OnClickListener(){
@@ -94,6 +95,24 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
             }
         });
 
+    }
+
+    private String waitingtimeSet() {
+        waitNumber = shopData.getWaitnumber();
+        space = shopData.getSpace_count();
+        ATime = shopData.getWaitingtime();
+        db.collection("shop").document(shopname).collection("waitinglist").orderBy("ticket_number").limit(waitNumber % space).orderBy("ticket_number", Query.Direction.DESCENDING).limit(1)
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        customertime = Integer.parseInt(document.get("service_total").toString());
+                    }
+                    waitingtime = waitNumber / space * ATime + customertime;
+                    pv_waittime.setText(waitingtime+"");
+                }
+            });
+        return String.valueOf(waitingtime);
     }
 
     @Override
@@ -155,7 +174,8 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
                         shopData.setUse(Boolean.valueOf(document.get("use").toString()));
                         code_check = shopData.getCode();
                         shopuse = shopData.getUse();
-                        dataset(shopData);
+                        pv_info_sname.setText(shopData.getName());
+
                     }
                 });
     }
@@ -168,12 +188,11 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
                 wait_number = query.size();
                 pv_waitnumber.setText(wait_number + " 명");
                 Log.d(TAG, wait_number+"Aaa");
+                db.collection("shop").document(shopname).update("waitnumber", wait_number);
             }
         });
     }
-    private void dataset(ShopData shopData){
-        pv_info_sname.setText(shopData.getName());
-    }
+
     private void shopUpdate() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();

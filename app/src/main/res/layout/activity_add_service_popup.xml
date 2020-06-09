@@ -42,6 +42,8 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/border"
             android:hint="대기시간(단위:분)"
+            android:inputType="number"
+            android:digits="0123456789"
             android:padding="8dp" />
     </LinearLayout>
     <LinearLayout

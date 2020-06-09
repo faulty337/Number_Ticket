@@ -38,7 +38,8 @@ public class EditShop extends AppCompatActivity {
     private String shopname;
     private FirebaseFirestore db;
     private FirebaseUser user;
-    private String name, type, address, tel_number, code, owner, waitingtime, space;
+    private String name, type, address, tel_number, code, owner, space;
+    private int waitingtime;
     private Boolean code_use = false;
     private Button serviceadd;
     private TextView sname;
@@ -184,7 +185,7 @@ public class EditShop extends AppCompatActivity {
         }else{
             code = "사용안함";
         }
-        waitingtime = ((EditText)findViewById(R.id.et_service_time)).getText().toString();
+        waitingtime = Integer.parseInt(((EditText)findViewById(R.id.et_service_time)).getText().toString());
         space = ((EditText)findViewById(R.id.et_service_number)).getText().toString();
         shopUpdate();
         MyStartActivity(ShopList.class);

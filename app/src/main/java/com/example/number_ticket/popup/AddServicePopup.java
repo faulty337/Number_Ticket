@@ -24,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class AddServicePopup extends DialogFragment {
     static final String TAG = "AddServicePopup";
     public interface OnCompleteListenner{
-        void onInputedData(String service, String time);
+        void onInputedData(String service, int time);
     }
 
     private OnCompleteListenner mCallback;
@@ -56,7 +56,7 @@ public class AddServicePopup extends DialogFragment {
             @Override
             public void onClick(View v) {
                 String service = service_name.getText().toString();
-                String time = service_time.getText().toString();
+                int time = Integer.parseInt(service_time.getText().toString());
                 Log.d(TAG, service + "aaa" + time);
                 dismiss();
                 mCallback.onInputedData(service, time);

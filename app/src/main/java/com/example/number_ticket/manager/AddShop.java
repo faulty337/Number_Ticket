@@ -41,7 +41,8 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
 
     private static final String TAG = "AddShopActivity";
     private FirebaseAuth mAuth;
-    private String name, type, address, tel_number, code, owner, waitingtime, space;
+    private String name, type, address, tel_number, code, owner, space;
+    private int waitingtime;
     private Boolean code_use = false;
     private FirebaseFirestore db;
     private FirebaseUser user;
@@ -53,7 +54,7 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
     private ServiceAdapter serviceAdapter;
 
     @Override
-    public void onInputedData(String service, String time) {
+    public void onInputedData(String service, int time) {
         serviceList.add(new ServiceInfo(service, time));
         serviceAdapter.notifyDataSetChanged();
     }
@@ -176,7 +177,7 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
         }else{
             code = "사용안함";
         }
-        waitingtime = ((EditText)findViewById(R.id.et_service_time)).getText().toString();
+        waitingtime = Integer.parseInt(((EditText)findViewById(R.id.et_service_time)).getText().toString());
         space = ((EditText)findViewById(R.id.et_service_number)).getText().toString();
         shopUpdate();
         MyStartActivity(ShopList.class);

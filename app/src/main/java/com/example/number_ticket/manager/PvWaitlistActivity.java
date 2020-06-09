@@ -52,7 +52,7 @@ public class PvWaitlistActivity extends Activity {
         this.InitializeShopData();
 
         ListView listView = (ListView)findViewById(R.id.pv_wait_listcontent);
-        waitListAdapter = new WaitListAdapter(this,waitlist);
+        waitListAdapter = new WaitListAdapter(this,waitlist, shopname);
         waitListAdapter.notifyDataSetChanged();
 
         listView.setAdapter(waitListAdapter);
@@ -84,6 +84,7 @@ public class PvWaitlistActivity extends Activity {
                                 WaitingInfo waitingInfo = new WaitingInfo(Integer.parseInt(document.get("ticket_number").toString()), document.get("time").toString(), document.get("waitingtime").toString(), Integer.parseInt(document.get("waiting_number").toString()), document.get("shopname").toString());
                                 waitingInfo.setEmail(document.get("email").toString());
                                 waitingInfo.setName(document.get("name").toString());
+                                waitingInfo.setService_total(Integer.parseInt(document.get("service_total").toString()));
                                 waitlist.add(waitingInfo);
                             }
                             Collections.reverse(waitlist);

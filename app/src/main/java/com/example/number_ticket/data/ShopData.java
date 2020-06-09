@@ -12,7 +12,7 @@ public class ShopData {
     private String owner;
     private Boolean use;
     private int waitnumber;
-    private String waitingtime;
+    private int waitingtime;
     private int space_count;
 
     public ShopData(String name, String tel_number, String type, String address, String code, Boolean code_use, String owner){
@@ -26,6 +26,7 @@ public class ShopData {
         this.owner = owner;
         this.use = false;
         this.space_count = 1;
+        this.waitingtime = 10;
     }
 
 
@@ -35,7 +36,7 @@ public class ShopData {
         return super.toString();
     }
 
-    public void setWaitingtime(String waitingtime) {
+    public void setWaitingtime(int waitingtime) {
         this.waitingtime = waitingtime;
     }
     public void setSpace_count(int space_count) {
@@ -69,7 +70,7 @@ public class ShopData {
         this.use = use;
     }
 
-    public String getWaitingtime() {
+    public int getWaitingtime() {
         return waitingtime;
     }
     public int getSpace_count() {
