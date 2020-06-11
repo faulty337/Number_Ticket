@@ -120,6 +120,7 @@ public class SearchShopList extends AppCompatActivity {
         initDatabase();
     }
     private void initDatabase() {
+        shopDataList.clear();
         final CollectionReference shoplistRf = db.collection("shop");
         shoplistRf
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {

@@ -157,7 +157,7 @@ public class CsTicketActivity extends AppCompatActivity {
     private void waitnumber_count(){
         db.collection("shop")
                 .document(shopName)
-                .collection("waitinglist")
+                .collection("waitinglist").whereEqualTo("onoff",false)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot task, @Nullable FirebaseFirestoreException e) {

@@ -21,6 +21,7 @@ import com.example.number_ticket.data.ShopData;
 import com.example.number_ticket.popup.AddServicePopup;
 import com.example.number_ticket.popup.CodeCheck;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -99,22 +100,29 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
 
     }
 
-//    private String waitingtimeSet() {
+//    private void waitingtimeSet() {
 //        waitNumber = shopData.getWaitnumber();
 //        space = shopData.getSpace_count();
 //        ATime = shopData.getWaitingtime();
-//        db.collection("shop").document(shopname).collection("waitinglist").orderBy("ticket_number").limit(waitNumber % space).orderBy("ticket_number", Query.Direction.DESCENDING).limit(1)
-//            .addSnapshotListener(new EventListener<QuerySnapshot>() {
-//                @Override
-//                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-//                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-//                        customertime = Integer.parseInt(document.get("service_total").toString());
-//                    }
-//                    waitingtime = waitNumber / space * ATime + customertime;
-//                    pv_waittime.setText(waitingtime+"");
-//                }
-//            });
-//        return String.valueOf(waitingtime);
+//
+//        Log.d(TAG, String.valueOf(waitNumber) + "aaa" + String.valueOf(space));
+//        if(waitNumber / space == 0){
+//            waitingtime = 0;
+//            pv_waittime.setText(waitingtime+" 분");
+//        }else{
+//            db.collection("shop").document(shopname).collection("waitinglist").orderBy("ticket_number").limit(waitNumber % space).orderBy("ticket_number", Query.Direction.DESCENDING).limit(1)
+//                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+//                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+//                                customertime = Integer.parseInt(document.get("service_total").toString());
+//                            }
+//                            waitingtime = waitNumber / space * ATime + customertime;
+//                            pv_waittime.setText(waitingtime+"");
+//                        }
+//                    });
+//
+//        };
 //    }
 
     @Override
@@ -137,7 +145,7 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
     }
 
     private void ticketNumber_get(){
-        Query docRef = db.collection("shop").document(shopname).collection("waitinglist").orderBy("waiting_number").limit(1);
+        Query docRef = db.collection("shop").document(shopname).collection("waitinglist").orderBy("waiting_number", Query.Direction.DESCENDING).limit(1);
         if(docRef != null){
             docRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
@@ -145,6 +153,7 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
                     if (task.isSuccessful()) {
                         if(task.getResult().size() !=0){
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.get("name").toString());
                                 ticket_number = Integer.parseInt(document.getData().get("ticket_number").toString())+ 1;
                                 intent.putExtra("ticket", ticket_number+"");
                                 startActivity(intent);
@@ -153,7 +162,6 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
                             Log.d(TAG, "비어있음");
                             ticket_number = 1;
                             intent.putExtra("ticket", ticket_number+"");
-                            Log.d(TAG, ticket_number+"");
                             startActivity(intent);
                         }
                     } else {
@@ -167,20 +175,21 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
     }
     private void readshop(final String shopName){
         db.collection("shop")
-                .document(shopName)
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot document, @Nullable FirebaseFirestoreException e) {
-                        shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
-                        shopData.setWaitnumber(Integer.parseInt(document.get("waitnumber").toString()));
-                        shopData.setUse(Boolean.valueOf(document.get("use").toString()));
-                        code_check = shopData.getCode();
-                        shopuse = shopData.getUse();
-                        pv_info_sname.setText(shopData.getName());
-//                        waitingtimeSet();
+            .document(shopName)
+            .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot document, @Nullable FirebaseFirestoreException e) {
+                    shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
+                    shopData.setWaitnumber(Integer.parseInt(document.get("waitnumber").toString()));
+                    shopData.setUse(Boolean.valueOf(document.get("use").toString()));
+                    shopData.setSpace_count(Integer.parseInt(document.get("space_count").toString()));
+                    code_check = shopData.getCode();
+                    shopuse = shopData.getUse();
+                    pv_info_sname.setText(shopData.getName());
+//                    waitingtimeSet();
 
-                    }
-                });
+                }
+            });
     }
     private void waitnumber_count(){
         db.collection("shop")
@@ -197,7 +206,6 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
     }
 
     private void shopUpdate() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("shop").document(shopname).set(shopData);
     }
