@@ -91,7 +91,7 @@ public class WaitListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 serviceadd();
-                db.collection("shop").document(sample.get(position).getShopname()).update("onof", true);
+                db.collection("shop").document(sample.get(position).getShopname()).collection("waitinglist").document(sample.get(position).getEmail()).update("onoff", true);
                 onoff.setImageResource(R.drawable.onbt);
                 waittime.setText("이용중");
                 onoff.setEnabled(false);
@@ -109,10 +109,10 @@ public class WaitListAdapter extends BaseAdapter {
                     }
                 };
                 timer.start();
-
-
             }
         });
+
+
         name.setText(sample.get(position).getName());
         number.setText(sample.get(position).getTicket_number()+"");
         waittime.setText(sample.get(position).getWaitingtime());

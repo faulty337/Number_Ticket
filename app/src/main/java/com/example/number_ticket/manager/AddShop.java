@@ -152,9 +152,6 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
         listView.setAdapter(serviceAdapter);
     }
 
-    private  void dataset(){
-
-    }
 
     public void serviceadd(){
         DialogFragment Fragment = new AddServicePopup();
@@ -177,7 +174,11 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
         }else{
             code = "사용안함";
         }
-        waitingtime = Integer.parseInt(((EditText)findViewById(R.id.et_service_time)).getText().toString());
+        if (waitingtime == 0){
+            waitingtime = 10;
+        }else {
+            waitingtime = Integer.parseInt(((EditText)findViewById(R.id.et_service_time)).getText().toString());
+        }
         space = ((EditText)findViewById(R.id.et_service_number)).getText().toString();
         shopUpdate();
         MyStartActivity(ShopList.class);

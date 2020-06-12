@@ -21,47 +21,52 @@ import com.example.number_ticket.data.ServiceInfo;
 import com.example.number_ticket.manager.AddShop;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class PvWaitlistAddPopup extends DialogFragment {
-    static final String TAG = "AddServicePopup";
-    public interface OnCompleteListenner{
-        void onInputedData(String service, String time);
-    }
-
-    private OnCompleteListenner mCallback;
-
+public class PvWaitlistAddPopup extends Activity {
+    static final String TAG = "WaitlistAddPopup";
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        try{
-            mCallback = (OnCompleteListenner) activity;
-        }
-        catch (ClassCastException e){
-            Log.d("DialogFragmentExample", "ㄴㄴ");
-        }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_pv_waitlist_add_popup);
     }
+//    public interface OnCompleteListenner{
+//        void onInputedData(String client_name, String waiting_time);
+//    }
+//
+//    private OnCompleteListenner mCallback;
+//
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//
+//        try{
+//            mCallback = (OnCompleteListenner) activity;
+//        }
+//        catch (ClassCastException e){
+//            Log.d("DialogFragmentExample", "ㄴㄴ");
+//        }
+//    }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.activity_add_service_popup, null);
-        builder.setView(view);
-        final Button submit = (Button) view.findViewById(R.id.bt_ok);
-        final EditText service_name = (EditText) view.findViewById(R.id.et_service_name);
-        final EditText service_time = (EditText) view.findViewById(R.id.et_service_time);
-
-        submit.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                String service = service_name.getText().toString();
-                String time = service_time.getText().toString();
-                Log.d(TAG, service + "aaa" + time);
-                dismiss();
-                mCallback.onInputedData(service, time);
-            }
-        });
-        return builder.create();
-    }
+//    @NonNull
+//    @Override
+//    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        LayoutInflater inflater = getActivity().getLayoutInflater();
+//        View view = inflater.inflate(R.layout.activity_pv_waitlist_add_popup, null);
+//        builder.setView(view);
+//        final Button submit = (Button) view.findViewById(R.id.bt_ok);
+//        final EditText client_name = (EditText) view.findViewById(R.id.et_client_name);
+//        final EditText waiting_time = (EditText) view.findViewById(R.id.et_service_time);
+//
+//        submit.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v) {
+//                String client = client_name.getText().toString();
+//                String time = waiting_time.getText().toString();
+//                Log.d(TAG, client + "aaa" + time);
+//                dismiss();
+//                mCallback.onInputedData(client, time);
+//            }
+//        });
+//        return builder.create();
+//    }
 }
