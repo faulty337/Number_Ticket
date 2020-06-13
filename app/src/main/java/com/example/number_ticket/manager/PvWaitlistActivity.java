@@ -39,8 +39,10 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 public class PvWaitlistActivity extends Activity {
     private static final String TAG = "PvWaitlistActivity";
@@ -76,12 +78,13 @@ public class PvWaitlistActivity extends Activity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         Intent intent = getIntent();
         shopname = intent.getExtras().getString("name");
+        start_time = timeset();
         nameset();
 
         findViewById(R.id.bt_client_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View dialogView = getLayoutInflater().inflate(R.layout.activity_pv_waitlist_add_popup, null);
+                final View dialogView = getLayoutInflater().inflate(R.layout.activity_pv_waitlist_add_popup, null);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(PvWaitlistActivity.this, R.style.MySaveAlertTheme);
                 builder.setView(dialogView);
@@ -89,18 +92,11 @@ public class PvWaitlistActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        addwait();
+                        addwait(dialogView);
                         Toast.makeText(getApplicationContext(), "추가되었습니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int id)
-                    {
-                        dialog.dismiss();
-                    }
-                });
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             }
@@ -130,22 +126,30 @@ public class PvWaitlistActivity extends Activity {
         });
     }
 
-    private void addwait(){
-        client_name = findViewById(R.id.et_client_name);
-        time = findViewById(R.id.et_service_time);
+    private String timeset() {
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String formatDate = sdfNow.format(date);
+        return formatDate;
+    }
+
+    private void addwait(View view){
+        client_name = view.findViewById(R.id.et_client_name);
+        time = view.findViewById(R.id.et_service_time);
 
         db = FirebaseFirestore.getInstance();
-        customer = user.getEmail(); // user.getEmail()이 아니라 name 으로 사용자를 찾? 아닌가 상관없나;;
-        waitingData = new WaitingInfo(0, start_time, "aa", wait_number, shopname);
+        customer = user.getEmail();
+        waitingData = new WaitingInfo(0, start_time, time.getText().toString(), 0, shopname);
         waitingData.setEmail(user.getEmail());
-        waitingData.setName(client_name.toString());// 대기자 이름을 넣어주어야할거 같은데 안들어간다
+        waitingData.setName(client_name.getText().toString());// 대기자 이름을 넣어주어야할거 같은데 안들어간다
         db.collection("shop").document(shopname).collection("waitinglist").document(customer).set(waitingData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-
                 Log.d(TAG, "끼요오오오옷");
             }
         });
+
 //        DialogFragment Fragment = new AddServicePopup();
 //        Fragment.show(getSupportFragmentManager(), "dialog");
     }

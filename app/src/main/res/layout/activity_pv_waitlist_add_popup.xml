@@ -44,23 +44,23 @@
             android:hint="대기시간(단위:분)"
             android:padding="8dp" />
     </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+<!--    <LinearLayout-->
+<!--        android:orientation="horizontal"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="5dp">-->
 
-        <Button
-            android:id="@+id/bt_ok"
-            android:layout_width="300dp"
-            android:layout_height="45dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/bluebutton"
-            android:gravity="center"
-            android:text="추가"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:onClick="client_add"/>
-    </LinearLayout>
+<!--        <Button-->
+<!--            android:id="@+id/bt_ok"-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="45dp"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:background="@drawable/bluebutton"-->
+<!--            android:gravity="center"-->
+<!--            android:text="추가"-->
+<!--            android:textColor="#000000"-->
+<!--            android:textSize="18sp"-->
+<!--            android:onClick="client_add"/>-->
+<!--    </LinearLayout>-->
 </LinearLayout>
