@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:background="@drawable/border"
-            android:hint="대기시간(단위:분)"
+            android:hint="대기시간(분)"
             android:padding="8dp" />
     </LinearLayout>
 <!--    <LinearLayout-->

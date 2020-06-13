@@ -5,8 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,7 +89,7 @@ public class PvWaitlistActivity extends Activity {
             public void onClick(View v) {
                 final View dialogView = getLayoutInflater().inflate(R.layout.activity_pv_waitlist_add_popup, null);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(PvWaitlistActivity.this, R.style.MySaveAlertTheme);
+                AlertDialog.Builder builder = new AlertDialog.Builder(PvWaitlistActivity.this, R.style.MyAddAlertTheme);
                 builder.setView(dialogView);
                 builder.setPositiveButton("추가", new DialogInterface.OnClickListener(){
                     @Override
@@ -99,6 +102,13 @@ public class PvWaitlistActivity extends Activity {
 
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
+                //여기부터 버튼 가운데로 넣는 코드
+                Button positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                LinearLayout parent = (LinearLayout) positiveButton.getParent();
+                parent.setGravity(Gravity.CENTER_HORIZONTAL);
+                View leftSpacer = parent.getChildAt(1);
+                leftSpacer.setVisibility(View.GONE);
+                //여기까지
             }
         });
 

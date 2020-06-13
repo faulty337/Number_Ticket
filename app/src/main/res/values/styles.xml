@@ -13,6 +13,7 @@
         <item name="buttonBarPositiveButtonStyle">@style/buttonBarButtonStyle.BluePositive</item>
         <item name="android:windowMinWidthMajor">@dimen/dialog_min_width_major</item>
         <item name="android:windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
+        <item name="buttonBarButtonStyle">@style/buttonBarButtonStyle</item>
     </style>
 
     <style name="MyCancelAlertTheme" parent="Theme.AppCompat.Light.Dialog">
@@ -20,9 +21,21 @@
         <item name="buttonBarPositiveButtonStyle">@style/buttonBarButtonStyle.RedPositive</item>
         <item name="android:windowMinWidthMajor">@dimen/dialog_min_width_major</item>
         <item name="android:windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
+        <item name="buttonBarButtonStyle">@style/buttonBarButtonStyle</item>
+    </style>
+
+    <style name="MyAddAlertTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/blue1</item>
+        <item name="android:windowMinWidthMajor">@dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
+        <item name="buttonBarPositiveButtonStyle">@style/buttonBarButtonStyle2.BluePositive</item>
+        <item name="buttonBarButtonStyle">@style/buttonBarButtonStyle2</item>
     </style>
 
     <style name="buttonBarButtonStyle" parent="Widget.AppCompat.Button.Borderless.Colored">
+    </style>
+
+    <style name="buttonBarButtonStyle2" parent="Widget.AppCompat.Button.Colored">
     </style>
 
     <style name="buttonBarButtonStyle.Negative">
@@ -38,5 +51,13 @@
     <style name="buttonBarButtonStyle.RedPositive">
         <item name="android:textColor">@color/red1</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="buttonBarButtonStyle2.BluePositive">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:width">250dp</item>
+        <item name="android:height">55dp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 </resources>
