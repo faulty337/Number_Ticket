@@ -21,6 +21,7 @@ public class WaitingInfo {
     private ArrayList<String> menu = new ArrayList<>();
     private int Service_total;
     private int personnel;
+    private Boolean Timer;
 
     public WaitingInfo(int ticket_number, String time, String waitingtime, int waiting_number, String shopname) {
         super();
@@ -76,6 +77,14 @@ public class WaitingInfo {
 
     public int getPersonnel() {
         return personnel;
+    }
+
+    public Boolean getTimer() {
+        return Timer;
+    }
+
+    public void setTimer(Boolean timer) {
+        Timer = timer;
     }
 
     public void setPersonnel(int personnel) {

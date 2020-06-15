@@ -1,9 +1,13 @@
 package com.example.number_ticket.manager;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -52,18 +56,28 @@ public class PvWaitlistActivity extends Activity {
     private FirebaseFirestore db;
     ArrayList<WaitingInfo> waitlist = new ArrayList<WaitingInfo>();;
     private WaitListAdapter waitListAdapter;
-    private String shopname;
-    private String owner;
     private FirebaseUser user;
     private WaitingInfo waitingData;
-    private String customer;
-    private String shopName; //매장 이름
     private int wait_number; //대기인원?
-    private String start_time;
-    private String username;
-    private EditText client_name;
-    private EditText time;
-
+    private String start_time, username, shopName, customer, owner, shopname;
+    private EditText client_name, time;
+    private Waitingtimer waitingtimer;
+    private boolean isBind;
+//
+//    ServiceConnection sconn = new ServiceConnection(){
+//        @Override
+//        public void onServiceConnected(ComponentName name, IBinder service) {
+//            Waitingtimer.MyBinder myBinder = (Waitingtimer.MyBinder) service;
+//            waitingtimer = myBinder.getService();
+//            isBind = true;
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName name) {
+//            waitingtimer = null;
+//            isBind = false;
+//        }
+//    };
 //    @Override
 //    public void onInputedData(String client_name, String waiting_time) {
 //        name = client_name;// 받아온 고객 이름
@@ -83,7 +97,8 @@ public class PvWaitlistActivity extends Activity {
         shopname = intent.getExtras().getString("name");
         start_time = timeset();
         nameset();
-
+//        Intent intent2 = new Intent(getApplicationContext(), Waitingtimer.class);
+//        bindService(intent2, sconn, Context.BIND_AUTO_CREATE);
         findViewById(R.id.bt_client_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,8 +206,9 @@ public class PvWaitlistActivity extends Activity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 WaitingInfo waitingInfo = new WaitingInfo(Integer.parseInt(document.get("ticket_number").toString()), document.get("time").toString(), document.get("waitingtime").toString(), Integer.parseInt(document.get("waiting_number").toString()), document.get("shopname").toString());
                                 waitingInfo.setEmail(document.get("email").toString());
-                                waitingInfo.setName(document.get("name").toString());
                                 waitingInfo.setService_total(Integer.parseInt(document.get("service_total").toString()));
+                                waitingInfo.setName(document.get("name").toString());
+                                waitingInfo.setOnoff(Boolean.valueOf(document.get("onoff").toString()).booleanValue());
                                 waitlist.add(waitingInfo);
                             }
                             Collections.reverse(waitlist);
