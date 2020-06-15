@@ -25,8 +25,6 @@ public class ShopData {
         this.waitnumber = 0;
         this.owner = owner;
         this.use = false;
-        this.space_count = 1;
-        this.waitingtime = 10;
     }
 
 

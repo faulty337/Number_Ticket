@@ -100,30 +100,33 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
 
     }
 
-//    private void waitingtimeSet() {
-//        waitNumber = shopData.getWaitnumber();
-//        space = shopData.getSpace_count();
-//        ATime = shopData.getWaitingtime();
-//
-//        Log.d(TAG, String.valueOf(waitNumber) + "aaa" + String.valueOf(space));
-//        if(waitNumber / space == 0){
-//            waitingtime = 0;
-//            pv_waittime.setText(waitingtime+" 분");
-//        }else{
-//            db.collection("shop").document(shopname).collection("waitinglist").orderBy("ticket_number").limit(waitNumber % space).orderBy("ticket_number", Query.Direction.DESCENDING).limit(1)
-//                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-//                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-//                                customertime = Integer.parseInt(document.get("service_total").toString());
-//                            }
-//                            waitingtime = waitNumber / space * ATime + customertime;
-//                            pv_waittime.setText(waitingtime+"");
-//                        }
-//                    });
-//
-//        };
-//    }
+    private void waitingtimeSet() {
+        waitNumber = shopData.getWaitnumber();
+        space = shopData.getSpace_count();
+        ATime = shopData.getWaitingtime();
+
+        Log.d(TAG, String.valueOf(waitNumber) + "aaa" + String.valueOf(space));
+        if(space > waitNumber){
+            waitingtime = 0;
+            pv_waittime.setText(waitingtime+" 분");
+        }else{
+            db.collection("shop").document(shopname)
+                    .collection("waitinglist")
+                    .orderBy("service_total")
+                    .startAt(waitNumber / space-1).limit(1)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                customertime = Integer.parseInt(document.get("service_total").toString());
+                            }
+                            waitingtime = (waitNumber / space-1) * ATime + customertime;
+                            pv_waittime.setText(waitingtime+" 분");
+                        }
+                    });
+
+        };
+    }
 
     @Override
     public void onInputedData(String code) {
@@ -183,10 +186,11 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
                     shopData.setWaitnumber(Integer.parseInt(document.get("waitnumber").toString()));
                     shopData.setUse(Boolean.valueOf(document.get("use").toString()));
                     shopData.setSpace_count(Integer.parseInt(document.get("space_count").toString()));
+                    shopData.setWaitingtime(Integer.parseInt(document.get("waitingtime").toString()));
                     code_check = shopData.getCode();
                     shopuse = shopData.getUse();
                     pv_info_sname.setText(shopData.getName());
-//                    waitingtimeSet();
+                    waitingtimeSet();
 
                 }
             });
@@ -194,7 +198,9 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
     private void waitnumber_count(){
         db.collection("shop")
                 .document(shopname)
-                .collection("waitinglist").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                .collection("waitinglist")
+//                .whereEqualTo("onoff", false)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot query, @Nullable FirebaseFirestoreException e) {
                 wait_number = query.size();
