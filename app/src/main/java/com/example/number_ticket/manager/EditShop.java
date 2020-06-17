@@ -41,6 +41,7 @@ public class EditShop extends AppCompatActivity {
     private String name, type, address, tel_number, code, owner, space;
     private int waitingtime;
     private Boolean code_use = false;
+    private Boolean service_use = false;
     private Button serviceadd;
     private TextView sname;
     private EditText sgroup;
@@ -105,6 +106,7 @@ public class EditShop extends AppCompatActivity {
         service_expand.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                service_use = isChecked;
                 if (isChecked){
                     service_add_layout.setVisibility(View.VISIBLE);
                     service_list.setVisibility(View.VISIBLE);
@@ -155,7 +157,7 @@ public class EditShop extends AppCompatActivity {
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot document, @Nullable FirebaseFirestoreException e) {
-                        shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
+                        shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString(),Boolean.valueOf(document.get("service_use").toString()));
                         shopData.setWaitnumber(Integer.parseInt(document.get("waitnumber").toString()));
                         shopData.setUse(Boolean.valueOf(document.get("use").toString()));
                         dataset(shopData);
@@ -180,6 +182,11 @@ public class EditShop extends AppCompatActivity {
         type = ((EditText)findViewById(R.id.et_sgroup)).getText().toString();
         address = ((EditText)findViewById(R.id.et_addr)).getText().toString();
         tel_number = ((EditText)findViewById(R.id.et_spNumber)).getText().toString();
+        if (service_use == true){
+            modify_service_use(service_use);
+        }else {
+            modify_service_use(false);
+        }
         if (code_use == true){
             code = ((EditText)findViewById(R.id.et_code)).getText().toString();
         }else{
@@ -200,7 +207,7 @@ public class EditShop extends AppCompatActivity {
     private void shopUpdate() {
         owner = user.getEmail();
         Log.d(TAG, owner);
-        ShopData shopData = new ShopData(name, tel_number, type, address, code, code_use, owner);
+        ShopData shopData = new ShopData(name, tel_number, type, address, code, code_use, owner, service_use);
         shopData.setWaitingtime(waitingtime);
         if(!space.equals("")){
             shopData.setSpace_count(Integer.parseInt(space));
@@ -211,7 +218,9 @@ public class EditShop extends AppCompatActivity {
         }
     }
 
-
+    private void modify_service_use(Boolean service_use){
+        db.collection("shop").document(name).update("service_use", service_use);
+    }
 
 
     /*수정 알고리즘

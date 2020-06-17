@@ -44,6 +44,7 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
     private String name, type, address, tel_number, code, owner, space;
     private int waitingtime;
     private Boolean code_use = false;
+    private Boolean service_use = false;
     private FirebaseFirestore db;
     private FirebaseUser user;
     private Button serviceadd;
@@ -52,6 +53,7 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
     private LinearLayout service_add_layout;
     private ListView service_list;
     private ServiceAdapter serviceAdapter;
+
 
     @Override
     public void onInputedData(String service, int time) {
@@ -91,6 +93,7 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
                 }
             }
         });
+
         serviceadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +104,7 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
         service_expand.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                service_use = isChecked;
                 if (isChecked){
                     service_add_layout.setVisibility(View.VISIBLE);
                     service_list.setVisibility(View.VISIBLE);
@@ -169,6 +173,11 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
         type = ((EditText)findViewById(R.id.et_sgroup)).getText().toString();
         address = ((EditText)findViewById(R.id.et_addr)).getText().toString();
         tel_number = ((EditText)findViewById(R.id.et_spNumber)).getText().toString();
+        if (service_use == true){
+            modify_service_use(service_use);
+        }else {
+            modify_service_use(false);
+        }
         if (code_use == true){
             code = ((EditText)findViewById(R.id.et_code)).getText().toString();
         }else{
@@ -187,7 +196,7 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
     private void shopUpdate() {
         owner = user.getEmail();
         Log.d(TAG, owner);
-        ShopData shopData = new ShopData(name, tel_number, type, address, code, code_use, owner);
+        ShopData shopData = new ShopData(name, tel_number, type, address, code, code_use, owner, service_use);
         shopData.setWaitingtime(waitingtime);
         if(!space.equals("")){
             shopData.setSpace_count(Integer.parseInt(space));
@@ -198,4 +207,7 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
         }
     }
 
+    private void modify_service_use(Boolean service_use){
+        db.collection("shop").document(name).update("service_use", service_use);
+    }
 }

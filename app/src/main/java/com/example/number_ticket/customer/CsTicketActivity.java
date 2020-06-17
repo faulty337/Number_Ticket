@@ -135,7 +135,7 @@ public class CsTicketActivity extends AppCompatActivity {
         db.collection("shop").document(shopName).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot document, @Nullable FirebaseFirestoreException e) {
-                shopdata = new ShopData(shopName, document.get("tel_number").toString(),document.get("type").toString(), document.get("address").toString(), document.get("code").toString(), Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
+                shopdata = new ShopData(shopName, document.get("tel_number").toString(),document.get("type").toString(), document.get("address").toString(), document.get("code").toString(), Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString(), Boolean.valueOf(document.get(("service_use")).toString()));
                 shopdata.setSpace_count(Integer.parseInt(document.get("space_count").toString()));
                 shopdata.setWaitingtime(Integer.parseInt(document.get("waitingtime").toString()));
                 wait_number = Integer.parseInt(document.getData().get("waitnumber").toString());
