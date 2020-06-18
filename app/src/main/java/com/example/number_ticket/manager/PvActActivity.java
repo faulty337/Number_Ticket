@@ -119,7 +119,7 @@ public class PvActActivity extends Activity {
                     public void onEvent(@Nullable DocumentSnapshot document, @Nullable FirebaseFirestoreException e) {
                         if (document != null){
                             Log.d(TAG, document.get("name").toString());
-                            shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString(),Boolean.valueOf(document.get("service_use").toString()));
+                            shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
                             shopData.setWaitnumber(Integer.parseInt(document.get("waitnumber").toString()));
                             shopData.setUse(Boolean.valueOf(document.get("use").toString()));
                             code_check = shopData.getCode();

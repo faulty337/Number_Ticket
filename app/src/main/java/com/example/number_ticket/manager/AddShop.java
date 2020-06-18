@@ -196,7 +196,8 @@ public class AddShop extends AppCompatActivity implements AddServicePopup.OnComp
     private void shopUpdate() {
         owner = user.getEmail();
         Log.d(TAG, owner);
-        ShopData shopData = new ShopData(name, tel_number, type, address, code, code_use, owner, service_use);
+        ShopData shopData = new ShopData(name, tel_number, type, address, code, code_use, owner);
+        shopData.setService_use(service_use);
         shopData.setWaitingtime(waitingtime);
         if(!space.equals("")){
             shopData.setSpace_count(Integer.parseInt(space));

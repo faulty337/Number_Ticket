@@ -79,7 +79,7 @@ public class SearchShopList extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                shopDataList.add(new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString(),Boolean.valueOf(document.get("service_use").toString())));
+                                shopDataList.add(new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString()));
                                 Log.d(TAG, document.get("code_use").getClass().getClass().toString());
                             }
 
@@ -102,7 +102,7 @@ public class SearchShopList extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
-                                            shopDataList.add(new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString(),Boolean.valueOf(document.get("service_use").toString())));
+                                            shopDataList.add(new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString()));
                                             Log.d(TAG, document.get("code_use").getClass().getClass().toString());
                                         }
                                         searchAdapter.notifyDataSetChanged();
@@ -127,7 +127,7 @@ public class SearchShopList extends AppCompatActivity {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            shopDataList.add(new ShopData(document.getData().get("name").toString(), document.getData().get("tel_number").toString(), document.getData().get("type").toString(), document.getData().get("address").toString(),document.getData().get("code").toString(),Boolean.valueOf(document.getData().get("code_use").toString()),document.getData().get("owner").toString(),Boolean.valueOf(document.getData().get("service_use").toString())));
+                            shopDataList.add(new ShopData(document.getData().get("name").toString(), document.getData().get("tel_number").toString(), document.getData().get("type").toString(), document.getData().get("address").toString(),document.getData().get("code").toString(),Boolean.valueOf(document.getData().get("code_use").toString()),document.getData().get("owner").toString()));
                         }
                         searchAdapter.notifyDataSetChanged();
                     }

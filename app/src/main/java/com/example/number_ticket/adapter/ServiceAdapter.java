@@ -45,7 +45,7 @@ public class ServiceAdapter extends BaseAdapter {
         TextView time = view.findViewById(R.id.service_time);
 
         name.setText(sample.get(position).getService());
-        time.setText(sample.get(position).getTime());
+        time.setText(sample.get(position).getTime()+"");
         return view;
     }
 }

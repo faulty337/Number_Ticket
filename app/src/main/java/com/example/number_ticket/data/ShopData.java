@@ -16,7 +16,7 @@ public class ShopData {
     private int space_count;
     private Boolean service_use;
 
-    public ShopData(String name, String tel_number, String type, String address, String code, Boolean code_use, String owner, Boolean service_use){
+    public ShopData(String name, String tel_number, String type, String address, String code, Boolean code_use, String owner){
         this.name = name;
         this.tel_number = tel_number;
         this.type = type;
@@ -26,7 +26,6 @@ public class ShopData {
         this.waitnumber = 0;
         this.owner = owner;
         this.use = false;
-        this.service_use = service_use;
     }
 
 

@@ -135,7 +135,7 @@ public class CsTicketActivity extends AppCompatActivity {
         db.collection("shop").document(shopName).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot document, @Nullable FirebaseFirestoreException e) {
-                shopdata = new ShopData(shopName, document.get("tel_number").toString(),document.get("type").toString(), document.get("address").toString(), document.get("code").toString(), Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString(), Boolean.valueOf(document.get(("service_use")).toString()));
+                shopdata = new ShopData(shopName, document.get("tel_number").toString(),document.get("type").toString(), document.get("address").toString(), document.get("code").toString(), Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
                 shopdata.setSpace_count(Integer.parseInt(document.get("space_count").toString()));
                 shopdata.setWaitingtime(Integer.parseInt(document.get("waitingtime").toString()));
                 wait_number = Integer.parseInt(document.getData().get("waitnumber").toString());
@@ -146,13 +146,14 @@ public class CsTicketActivity extends AppCompatActivity {
 
     private void waitinglistset(int ticket_n) { //waitinglist 추가하는 부분
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        waitingData = new WaitingInfo(ticket_n, start_time, "aa", wait_number, shopName);
+        waitingData = new WaitingInfo(ticket_n, start_time, wait_number, shopName);
+        waitingData.setWaitingtime("0");
         waitingData.setEmail(user.getEmail());
         waitingData.setName(username);
         db.collection("shop").document(shopName).collection("waitinglist").document(user.getEmail()).set(waitingData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.d(TAG, "끼요오오오옷");
+
             }
         });
     }
@@ -194,17 +195,23 @@ public class CsTicketActivity extends AppCompatActivity {
             db.collection("shop").document(shopName)
                     .collection("waitinglist")
                     .orderBy("service_total")
-                    .startAt(waitNumber / space).limit(1)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                            int a = 0;
                             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                                customertime = Integer.parseInt(document.get("service_total").toString());
-                                Log.d(TAG, document.get("name").toString());
-                                Log.d(TAG, document.get("service_total").toString());
+                                if(Boolean.valueOf(document.get("onoff").toString())){
+                                    if(a == (waitNumber % space)){
+                                        customertime = Integer.parseInt(document.get("service_total").toString());
+                                        Log.d(TAG, document.get("name").toString());
+                                        break;
+                                    }
+                                    a++;
+                                }
                             }
                             waitingtime = (waitNumber / space-1) * ATime + customertime;
                             cs_waittime.setText(waitingtime+" 분");
+                            db.collection("shop").document(shopName).collection("waitinglist").document(user.getEmail()).update("waitingtime", waitingtime);
                         }
                     });
 

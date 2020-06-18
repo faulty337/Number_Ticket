@@ -59,6 +59,7 @@ public class PvWaitlistActivity extends Activity {
     private FirebaseUser user;
     private WaitingInfo waitingData;
     private int wait_number; //대기인원?
+    private int i = 0;
     private String start_time, username, shopName, customer, owner, shopname;
     private EditText client_name, time;
     private Waitingtimer waitingtimer;
@@ -112,6 +113,7 @@ public class PvWaitlistActivity extends Activity {
                     {
                         addwait(dialogView);
                         Toast.makeText(getApplicationContext(), "추가되었습니다.", Toast.LENGTH_SHORT).show();
+
                     }
                 });
 
@@ -160,21 +162,21 @@ public class PvWaitlistActivity extends Activity {
     }
 
     private void addwait(View view){
+
         client_name = view.findViewById(R.id.et_client_name);
         time = view.findViewById(R.id.et_service_time);
 
         db = FirebaseFirestore.getInstance();
-        customer = user.getEmail();
-        waitingData = new WaitingInfo(0, start_time, time.getText().toString(), 0, shopname);
-        waitingData.setEmail(user.getEmail());
+        customer = user.getEmail()+String.valueOf(i);
+        waitingData = new WaitingInfo(0, start_time, 0, shopname);
+        waitingData.setService_total(Integer.parseInt(time.getText().toString()));
+        waitingData.setWaitingtime("0");
+        waitingData.setEmail(user.getEmail()+String.valueOf(i));
         waitingData.setName(client_name.getText().toString());// 대기자 이름을 넣어주어야할거 같은데 안들어간다
-        db.collection("shop").document(shopname).collection("waitinglist").document(customer).set(waitingData).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d(TAG, "끼요오오오옷");
-            }
-        });
+        db.collection("shop").document(shopname).collection("waitinglist").document(customer).set(waitingData);
 
+        i++;
+        InitializeShopData();
 //        DialogFragment Fragment = new AddServicePopup();
 //        Fragment.show(getSupportFragmentManager(), "dialog");
     }
@@ -204,14 +206,15 @@ public class PvWaitlistActivity extends Activity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                WaitingInfo waitingInfo = new WaitingInfo(Integer.parseInt(document.get("ticket_number").toString()), document.get("time").toString(), document.get("waitingtime").toString(), Integer.parseInt(document.get("waiting_number").toString()), document.get("shopname").toString());
+                                WaitingInfo waitingInfo = new WaitingInfo(Integer.parseInt(document.get("ticket_number").toString()), document.get("time").toString(), Integer.parseInt(document.get("waiting_number").toString()), document.get("shopname").toString());
+                                waitingInfo.setWaitingtime(document.get("waitingtime").toString());
                                 waitingInfo.setEmail(document.get("email").toString());
                                 waitingInfo.setService_total(Integer.parseInt(document.get("service_total").toString()));
                                 waitingInfo.setName(document.get("name").toString());
                                 waitingInfo.setOnoff(Boolean.valueOf(document.get("onoff").toString()).booleanValue());
                                 waitlist.add(waitingInfo);
                             }
-                            Collections.reverse(waitlist);
+//                            Collections.reverse(waitlist);
                             waitListAdapter.notifyDataSetChanged();
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());

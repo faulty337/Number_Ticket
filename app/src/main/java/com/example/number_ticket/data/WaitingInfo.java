@@ -23,11 +23,10 @@ public class WaitingInfo {
     private int personnel;
     private Boolean Timer;
 
-    public WaitingInfo(int ticket_number, String time, String waitingtime, int waiting_number, String shopname) {
+    public WaitingInfo(int ticket_number, String time, int waiting_number, String shopname) {
         super();
         this.ticket_number = ticket_number;
         this.time = time;
-        this.waitingtime = waitingtime;
         this.waiting_number = waiting_number;
         this.shopname = shopname;
         this.onoff = false;

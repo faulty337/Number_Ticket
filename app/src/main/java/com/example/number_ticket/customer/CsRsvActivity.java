@@ -3,6 +3,7 @@ package com.example.number_ticket.customer;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +33,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import static android.content.ContentValues.TAG;
 
 //View dialogView = getLayoutInflater().inflate(R.layout.activity_code_check, null);
 //
@@ -68,6 +71,7 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
     private Intent intent;
     private int ticket_number, waitingtime, waitNumber, space, ATime, customertime;
     private ShopData shopData;
+    private CountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -104,8 +108,7 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
         waitNumber = shopData.getWaitnumber();
         space = shopData.getSpace_count();
         ATime = shopData.getWaitingtime();
-
-        Log.d(TAG, String.valueOf(waitNumber) + "aaa" + String.valueOf(space));
+        Log.d(TAG,  String.valueOf(waitNumber) +"aaaa" +  String.valueOf(space));
         if(space > waitNumber){
             waitingtime = 0;
             pv_waittime.setText(waitingtime+" 분");
@@ -113,12 +116,20 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
             db.collection("shop").document(shopname)
                     .collection("waitinglist")
                     .orderBy("service_total")
-                    .startAt(waitNumber / space-1).limit(1)
+//                    .startAt(waitNumber / space-1).limit(1)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                            int f = 0;
                             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                                customertime = Integer.parseInt(document.get("service_total").toString());
+                                if(Boolean.valueOf(document.get("onoff").toString())){
+                                    if( f== (waitNumber % space)){
+                                        customertime = Integer.parseInt(document.get("service_total").toString());
+                                        Log.d(TAG, document.get("name").toString());
+                                        break;
+                                    }
+                                    f++;
+                                }
                             }
                             waitingtime = (waitNumber / space-1) * ATime + customertime;
                             pv_waittime.setText(waitingtime+" 분");
@@ -127,6 +138,18 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
 
         };
     }
+//    public void timer(int time){
+//        timer = new CountDownTimer(time, 60000){
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//
+//            }
+//            @Override
+//            public void onFinish() {
+//            }
+//        };
+//        timer.start();
+//    }
 
     @Override
     public void onInputedData(String code) {
@@ -182,7 +205,7 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
             .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot document, @Nullable FirebaseFirestoreException e) {
-                    shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString(), Boolean.valueOf(document.get("service_use").toString()));
+                    shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
                     shopData.setWaitnumber(Integer.parseInt(document.get("waitnumber").toString()));
                     shopData.setUse(Boolean.valueOf(document.get("use").toString()));
                     shopData.setSpace_count(Integer.parseInt(document.get("space_count").toString()));
@@ -205,7 +228,6 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
             public void onEvent(@Nullable QuerySnapshot query, @Nullable FirebaseFirestoreException e) {
                 wait_number = query.size();
                 pv_waitnumber.setText(wait_number + " 명");
-                Log.d(TAG, wait_number+"Aaa");
                 db.collection("shop").document(shopname).update("waitnumber", wait_number);
             }
         });
@@ -277,5 +299,11 @@ public class CsRsvActivity extends AppCompatActivity implements CodeCheck.OnComp
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        timer.onFinish();
     }
 }

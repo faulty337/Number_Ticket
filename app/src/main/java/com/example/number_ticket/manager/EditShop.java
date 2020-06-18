@@ -157,7 +157,7 @@ public class EditShop extends AppCompatActivity {
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot document, @Nullable FirebaseFirestoreException e) {
-                        shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString(),Boolean.valueOf(document.get("service_use").toString()));
+                        shopData = new ShopData(document.get("name").toString(), document.get("tel_number").toString(), document.get("type").toString(), document.get("address").toString(),document.get("code").toString(),Boolean.valueOf(document.get("code_use").toString()),document.get("owner").toString());
                         shopData.setWaitnumber(Integer.parseInt(document.get("waitnumber").toString()));
                         shopData.setUse(Boolean.valueOf(document.get("use").toString()));
                         dataset(shopData);
@@ -207,7 +207,8 @@ public class EditShop extends AppCompatActivity {
     private void shopUpdate() {
         owner = user.getEmail();
         Log.d(TAG, owner);
-        ShopData shopData = new ShopData(name, tel_number, type, address, code, code_use, owner, service_use);
+        ShopData shopData = new ShopData(name, tel_number, type, address, code, code_use, owner);
+        shopData.setService_use(service_use);
         shopData.setWaitingtime(waitingtime);
         if(!space.equals("")){
             shopData.setSpace_count(Integer.parseInt(space));

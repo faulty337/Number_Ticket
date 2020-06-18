@@ -1,6 +1,7 @@
 package com.example.number_ticket.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +46,7 @@ public class WaitListAdapter extends BaseAdapter {
     private TextView waittime;
     private ImageButton cancel;
     private String shopname;
+    private int total;
     String sw = "off";
     View view;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -98,8 +100,12 @@ public class WaitListAdapter extends BaseAdapter {
         if(sample.get(position).getOnoff()){
             onoff.setEnabled(false);
             sw = "on";
+            waittime.setText("이용중");
+
         }else {
             sw="off";
+            onoff.setBackground(mContext.getDrawable(R.drawable.button_background_enabled));
+            waittime.setText("대기시간 : " + sample.get(position).getWaitingtime()+ " 분");
         }
         onoff.setText(sw);
         cancel = view.findViewById(R.id.bt_pv_waitcancle);
@@ -121,10 +127,11 @@ public class WaitListAdapter extends BaseAdapter {
         onoff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                serviceadd(position);
+//                serviceadd(position);
+//                calculate(position);
                 db.collection("shop").document(sample.get(position).getShopname()).collection("waitinglist").document(sample.get(position).getEmail()).update("onoff", true);
                 sample.get(position).setOnoff(true);
-                waittime.setText("이용중");
+
                 onoff.setEnabled(false);
 //                timer = new CountDownTimer(sample.get(position).getService_total() * 60000, 60000
 //                ){
@@ -149,34 +156,48 @@ public class WaitListAdapter extends BaseAdapter {
 
         name.setText(sample.get(position).getName());
         number.setText(sample.get(position).getTicket_number()+"");
-        waittime.setText(sample.get(position).getWaitingtime());
+
         notifyDataSetChanged();
 
         return view;
     }
-    private void serviceadd(final int position){
-        db.collection("shop").document(shopname).collection("service")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        ArrayList<ServiceInfo> menu = new ArrayList<>();
-                        int total = 0;
-                        for(QueryDocumentSnapshot document : queryDocumentSnapshots){
-                            Boolean add = random.nextBoolean();
-                            Log.d(TAG, add.toString());
-                            if(add){
-                                ServiceInfo serviceInfo = new ServiceInfo(document.getData().get("service").toString(), Integer.parseInt(document.getData().get("time").toString()));
-                                menu.add(serviceInfo);
-                                Log.d(TAG, document.getData().get("service").toString());
-                                total += Integer.parseInt(document.getData().get("time").toString());
-                                Log.d(TAG, String.valueOf(total));
-                            }
-                        }
-                        sample.get(position).setService_total(total);
-                        customer_service_update(menu, total, position);
-                    }
-                });
-    }
+
+//    private void serviceadd(final int position){
+//        db.collection("shop").document(shopname).collection("service")
+//                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+//                        ArrayList<ServiceInfo> menu = new ArrayList<>();
+//                        int total = 0;
+//                        for(QueryDocumentSnapshot document : queryDocumentSnapshots){
+//                            Boolean add = random.nextBoolean();
+//                            Log.d(TAG, add.toString());
+//                            if(add){
+//                                ServiceInfo serviceInfo = new ServiceInfo(document.getData().get("service").toString(), Integer.parseInt(document.getData().get("time").toString()));
+//                                menu.add(serviceInfo);
+//                                Log.d(TAG, document.getData().get("service").toString());
+//                                total += Integer.parseInt(document.getData().get("time").toString());
+//                                Log.d(TAG, String.valueOf(total));
+//                            }
+//                        }
+//                        sample.get(position).setService_total(total);
+//                        customer_service_update(menu, total, position);
+//                    }
+//                });
+//    }
+//    private void calculate(final int position){
+//        Log.d(TAG, sample.get(position).getShopname() + sample.get(position).getEmail() + "좀 되라고");
+//        db.collection("shop").document(sample.get(position).getShopname()).collection("waitinglist").document(sample.get(position).getEmail()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot document, @Nullable FirebaseFirestoreException e) {
+//
+//                for(ServiceInfo service : (ArrayList<Integer>) document.get("menu")){
+//                    total += service.getTime() + sercice.getWeight();  //각 서비스의 시간 + 가중치
+//                }
+//                total = total/sample.get(position).getPersonnel(); //총 시간을 인원으로 나눈 몫을 시간으로
+//            }
+//        });
+//    }
 
     private void customer_service_update(ArrayList<ServiceInfo> menu, int total, int position){
         DocumentReference waitRef = db.collection("shop").document(shopname).collection("waitinglist").document(sample.get(position).getEmail());
